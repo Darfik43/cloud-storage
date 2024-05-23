@@ -13,5 +13,7 @@ public class AppUserRequest {
     private String username;
     @NotBlank (message = "password should not be null")
     private String password;
+    @NotBlank (message = "Password confirmation should not be null")
+    private String passwordConfirmation;
 }
 
