@@ -14,11 +14,6 @@ import lombok.ToString;
 @ToString
 public class AppUser {
 
-    public AppUser(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
     @Id
     @SequenceGenerator(
             name = "app_user_sequence",
@@ -30,6 +25,12 @@ public class AppUser {
             generator = "app_user_sequence"
     )
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
+
+    public AppUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
