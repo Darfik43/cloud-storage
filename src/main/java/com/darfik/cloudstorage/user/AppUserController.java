@@ -10,7 +10,7 @@ import java.util.List;
 @RestController //TODO It is to be @Controller
 @RequestMapping("/users")
 @AllArgsConstructor
-public class UserController {
+public class AppUserController {
     private final AppUserService appUserService;
     @GetMapping
     public List<AppUser> getUsers() {
