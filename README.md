@@ -14,7 +14,7 @@ Cloud file storage pet-project. In the development stage
 
 ### Back-end:
 - Java 21
-- Spring Boot 2.6.1:
+- Spring Boot 3.2.5:
     * Web
     * Security
     * Session
@@ -55,7 +55,7 @@ darfik43@gmail.com
 
 ### Back-end:
 - Java 21
-- Spring Boot 2.6.1:
+- Spring Boot 3.2.5:
     * Web
     * Security
     * Session
