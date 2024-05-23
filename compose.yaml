@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=cloud-storage'
+      - 'POSTGRES_PASSWORD=12345678'
+      - 'POSTGRES_USER=user'
+    ports:
+      - 5432:5432
