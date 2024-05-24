@@ -25,9 +25,12 @@ public class AppUserController {
     }
 
 
-    //TODO Password validation
+    //TODO Password validation DONE
+    //TODO Email validation DONE
+    //TODO Password confirmation DONE
+    // Check up @ModelAttribute("appUserRequest") DONE
     @PostMapping("/signup")
-    public String registerNewUser(@ModelAttribute @Valid AppUserRequest appUserRequest) throws UserAlreadyExistsException {
+    public String registerNewUser(@Valid AppUserRequest appUserRequest) throws UserAlreadyExistsException {
             appUserService.addNewUser(appUserRequest);
             return "redirect:/users";
     }
