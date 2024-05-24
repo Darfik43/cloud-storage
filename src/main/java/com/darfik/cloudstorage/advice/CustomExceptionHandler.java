@@ -8,26 +8,28 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String handleInvalidArgument(MethodArgumentNotValidException exception, Model model) {
-        Map<String, String> map = new HashMap<>();
-        exception.getBindingResult().getFieldErrors().forEach(fieldError -> {
-            map.put(fieldError.getField(), fieldError.getDefaultMessage());
-        });
-        model.addAttribute("errorMessage", map.toString());
+        Map<String, String> errors = new LinkedHashMap<>();
+        exception.getBindingResult()
+                .getFieldErrors()
+                .forEach(error ->
+                        errors.put(error.getField(), error.getDefaultMessage()));
 
-        return "sign-up";
+        model.addAttribute("errors", errors);
+        return "signup";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
     public String handleUserAlreadyExistsException(UserAlreadyExistsException exception, Model model) {
         model.addAttribute("errorMessage", exception.getMessage());
-        return "sign-up";
+        return "signup";
     }
 }
