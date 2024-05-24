@@ -26,11 +26,11 @@ public class AppUser {
     )
     private Long id;
     @Column(unique = true)
-    private String username;
+    private String email;
     private String password;
 
-    public AppUser(String username, String password) {
-        this.username = username;
+    public AppUser(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 }

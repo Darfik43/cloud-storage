@@ -1,6 +1,7 @@
 package com.darfik.cloudstorage.user;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -10,10 +11,11 @@ import lombok.*;
 @Setter
 public class AppUserRequest {
     @NotBlank (message = "username should not be null")
-    private String username;
+    @NotNull
+    private String email;
     @NotBlank (message = "password should not be null")
+    @NotNull
     private String password;
-    @NotBlank (message = "Password confirmation should not be null")
-    private String passwordConfirmation;
+    private String matchingPassword;
 }
 

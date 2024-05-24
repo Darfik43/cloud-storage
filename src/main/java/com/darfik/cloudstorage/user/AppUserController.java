@@ -19,14 +19,14 @@ public class AppUserController {
         return appUserService.getUsers();
     }
 
-    @GetMapping("/sign-up")
+    @GetMapping("/signup")
     public String showRegistrationForm() {
-        return "sign-up";
+        return "signup";
     }
 
 
     //TODO Password validation
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public String registerNewUser(@ModelAttribute @Valid AppUserRequest appUserRequest) throws UserAlreadyExistsException {
             appUserService.addNewUser(appUserRequest);
             return "redirect:/users";

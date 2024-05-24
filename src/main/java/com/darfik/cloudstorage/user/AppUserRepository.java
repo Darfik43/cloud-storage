@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     @Transactional
-    @Query("SELECT user FROM AppUser user WHERE user.username = ?1")
+    @Query("SELECT user FROM AppUser user WHERE user.email = ?1")
     Optional<AppUser> findAppUserByUsername(String username);
 }

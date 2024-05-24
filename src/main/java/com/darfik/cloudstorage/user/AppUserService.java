@@ -17,7 +17,7 @@ public class AppUserService {
     }
 
     public void addNewUser(AppUserRequest appUserRequest) {
-        appUserRepository.findAppUserByUsername(appUserRequest.getUsername())
+        appUserRepository.findAppUserByUsername(appUserRequest.getEmail())
                 .ifPresentOrElse((user) ->
                         {
                             throw new UserAlreadyExistsException("User already exists");
