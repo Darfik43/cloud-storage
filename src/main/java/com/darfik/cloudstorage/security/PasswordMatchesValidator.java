@@ -16,7 +16,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
                     .addPropertyNode("matchingPassword").addConstraintViolation();
-            return false; // Second option is to delete all code above
+            return false;
         }
         return true;
     }
