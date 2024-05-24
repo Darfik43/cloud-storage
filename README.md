@@ -13,7 +13,7 @@ Cloud file storage pet-project. In the development stage
 ## Technologies Used
 
 ### Back-end:
-- Java 21
+- Java 17
 - Spring Boot 3.2.5:
     * Web
     * Security
@@ -21,10 +21,13 @@ Cloud file storage pet-project. In the development stage
     * Data JPA
 - Thymeleaf
 - JUnit
-- PostgreSQL Database
+- PostgreSQL
 
 ### Front-end:
-
+- HTML
+- CSS
+- Bootstrap
+- JavaScript
 
 ### Deploy
 - Docker
@@ -54,7 +57,7 @@ darfik43@gmail.com
 ## Используемые технологии
 
 ### Back-end:
-- Java 21
+- Java 17
 - Spring Boot 3.2.5:
     * Web
     * Security
@@ -62,10 +65,13 @@ darfik43@gmail.com
     * Data JPA
 - Thymeleaf
 - JUnit
-- PostgreSQL Database
+- PostgreSQL
 
 ### Front-end:
-
+- HTML
+- CSS
+- Bootstrap
+- JavaScript
 
 ### Deploy
 - Docker
