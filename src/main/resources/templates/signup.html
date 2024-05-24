@@ -4,59 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #ffffff;
-        }
-
-        header {
-            background-color: #ffffff;
-        }
-
-        .card {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            background-color: #ffffff;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/signup-form.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/dist/jquery.min.js}"></script>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/skycast/home">Skycast</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-            </ul>
-        </div>
-    </nav>
-</header>
 
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="card w-100" style="max-width: 400px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <div class="signup-form">
         <div class="card-body">
             <h2 class="mb-3 text-center">Sign Up</h2>
-            <form action="#" th:action="@{/users/signup}" th:object="${appUserRequest}" method="post">
+            <form action="#" th:action="@{/users/signup}" method="post">
                 <div class="form-group">
-                    <label for="email">Username</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
+                               oninput="checkPasswordStrength(this)" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="togglePassword">
+                                <i class="far fa-eye-slash"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    <label for="matchingPassword">Confirm password</label>
+                    <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="Confirm your password" required>
                 </div>
-                <div th:if="${errorMessage}" class="text-center" role="alert">
-                    <div class="text-danger mb-3" th:text="${errorMessage}">An error occurred</div>
+                <div class="form-text text-muted small pl-3">
+                    <ul id="password-requirements" class="list-unstyled" style="list-style-type: disc;">
+                        <li id="length-requirement" class="text-danger">At least 8 characters long</li>
+                        <li id="uppercase-requirement" class="text-danger">At least one uppercase letter</li>
+                        <li id="lowercase-requirement" class="text-danger">At least one lowercase letter</li>
+                        <li id="number-requirement" class="text-danger">At least one number</li>
+                        <li id="special-character-requirement" class="text-danger">At least one special character</li>
+                    </ul>
+                </div>
+                <div th:if="${errors}">
+                    <ul>
+                        <li class="text-danger" th:each="error : ${errors.values()}" th:text="${error}"></li>
+                    </ul>
+                </div>
+                <div th:if="${errorMessage}">
+                    <h4>Error:</h4>
+                    <p th:text="${errorMessage}"></p>
                 </div>
                 <div class="d-flex justify-content-center align-items-center flex-wrap">
                     <button type="submit" class="btn btn-primary w-100">Sign Up</button>
@@ -71,6 +68,12 @@
         </div>
     </div>
 </div>
-<script src="/bootstrap.bundle.min.js"></script>
+<script th:src="@{/webjars/popper.js/1.14.7/dist/umd/popper.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js}" defer></script>
+<script th:src="@{/signup-form.js}" defer></script>
+<script th:src="@{/password-validator.js}" defer></script>
+<script>
+
+</script>
 </body>
 </html>
