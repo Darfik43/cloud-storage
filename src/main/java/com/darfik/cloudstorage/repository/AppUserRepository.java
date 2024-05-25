@@ -1,5 +1,6 @@
-package com.darfik.cloudstorage.user;
+package com.darfik.cloudstorage.repository;
 
+import com.darfik.cloudstorage.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

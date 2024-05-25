@@ -1,6 +1,5 @@
-package com.darfik.cloudstorage.advice;
+package com.darfik.cloudstorage.exception;
 
-import com.darfik.cloudstorage.user.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;

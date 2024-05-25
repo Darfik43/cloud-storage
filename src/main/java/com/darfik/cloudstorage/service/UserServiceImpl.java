@@ -1,13 +1,13 @@
-package com.darfik.cloudstorage.user;
+package com.darfik.cloudstorage.service;
 
-import com.darfik.cloudstorage.mapper.AppUserMapper;
+import com.darfik.cloudstorage.dto.AppUserRequest;
+import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
+import com.darfik.cloudstorage.model.AppUser;
+import com.darfik.cloudstorage.repository.AppUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Transactional

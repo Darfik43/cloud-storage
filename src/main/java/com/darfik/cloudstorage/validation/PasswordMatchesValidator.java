@@ -1,6 +1,6 @@
-package com.darfik.cloudstorage.security;
+package com.darfik.cloudstorage.validation;
 
-import com.darfik.cloudstorage.user.AppUserRequest;
+import com.darfik.cloudstorage.dto.AppUserRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

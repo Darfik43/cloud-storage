@@ -1,5 +1,7 @@
-package com.darfik.cloudstorage.user;
+package com.darfik.cloudstorage.security;
 
+import com.darfik.cloudstorage.model.AppUser;
+import com.darfik.cloudstorage.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

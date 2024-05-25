@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.mapper;
 
-import com.darfik.cloudstorage.user.AppUser;
-import com.darfik.cloudstorage.user.AppUserRequest;
+import com.darfik.cloudstorage.model.AppUser;
+import com.darfik.cloudstorage.dto.AppUserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;

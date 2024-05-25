@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.user;
+package com.darfik.cloudstorage.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.darfik.cloudstorage.user;
+package com.darfik.cloudstorage.dto;
 
-import com.darfik.cloudstorage.security.PasswordMatches;
-import com.darfik.cloudstorage.security.ValidPassword;
+import com.darfik.cloudstorage.validation.PasswordMatches;
+import com.darfik.cloudstorage.validation.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
