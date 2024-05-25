@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.controller;
 
-import com.darfik.cloudstorage.dto.AppUserRequest;
+import com.darfik.cloudstorage.dto.RegistrationDto;
 import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.service.UserService;
 import jakarta.validation.Valid;
@@ -23,8 +23,8 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerNewUser(@Valid AppUserRequest appUserRequest) throws UserAlreadyExistsException {
-        userService.registerNewUser(appUserRequest);
+    public String registerNewUser(@Valid RegistrationDto registrationDto) throws UserAlreadyExistsException {
+        userService.registerNewUser(registrationDto);
         return "redirect:/login";
     }
 }

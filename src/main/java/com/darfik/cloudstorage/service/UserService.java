@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.service;
 
-import com.darfik.cloudstorage.dto.AppUserRequest;
+import com.darfik.cloudstorage.dto.RegistrationDto;
 
 public interface UserService {
-    void registerNewUser(AppUserRequest appUserRequest);
+    void registerNewUser(RegistrationDto registrationDto);
 }

@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.service;
 
-import com.darfik.cloudstorage.dto.AppUserRequest;
+import com.darfik.cloudstorage.dto.RegistrationDto;
 import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.model.AppUser;
 import com.darfik.cloudstorage.repository.AppUserRepository;
@@ -17,16 +17,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerNewUser(AppUserRequest appUserRequest) {
-        if (!userExists(appUserRequest.getEmail())) {
+    public void registerNewUser(RegistrationDto registrationDto) {
+        if (!userExists(registrationDto.getEmail())) {
             AppUser appUser = new AppUser(
-              appUserRequest.getEmail(),
-              passwordEncoder.encode(appUserRequest.getPassword()),
+              registrationDto.getEmail(),
+              passwordEncoder.encode(registrationDto.getPassword()),
               "USER");
 
             appUserRepository.save(appUser);
         } else {
-            throw new UserAlreadyExistsException("User already exists" + appUserRequest.getEmail());
+            throw new UserAlreadyExistsException("User already exists" + registrationDto.getEmail());
         }
     }
 

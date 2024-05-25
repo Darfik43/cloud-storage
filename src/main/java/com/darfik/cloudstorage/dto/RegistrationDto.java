@@ -13,7 +13,7 @@ import lombok.*;
 @Getter
 @Setter
 @PasswordMatches
-public class AppUserRequest {
+public class RegistrationDto {
 
     @NotBlank (message = "email should not be null")
     @NotNull
