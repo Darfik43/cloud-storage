@@ -3,11 +3,11 @@ package com.darfik.cloudstorage.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller("/home")
+@Controller("/")
 public class HomeController {
 
-    @GetMapping
+    @GetMapping()
     public String showHomePage() {
-        return "signup";
+        return "home";
     }
 }
