@@ -27,8 +27,6 @@ public class WebSecurityConfiguration {
                     registry.requestMatchers("/home", "/signup/**").permitAll();
                     registry.requestMatchers("/webjars/**").permitAll();
                     registry.requestMatchers("/signup-form.js", "/signup-form.css", "/password-validator.js").permitAll();
-                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
-                    registry.requestMatchers("/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer ->
