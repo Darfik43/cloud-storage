@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/signup-form.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/dist/jquery.min.js}"></script>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="signup-form">
+        <div class="card-body">
+            <h2 class="mb-3 text-center">Login</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Enter your password"
+                               required>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="togglePassword">
+                                <i class="far fa-eye-slash"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${errors}">
+                    <ul>
+                        <li class="text-danger" th:each="error : ${errors.values()}" th:text="${error}"></li>
+                    </ul>
+                </div>
+                <div th:if="${errorMessage}">
+                    <h4>Error:</h4>
+                    <p th:text="${errorMessage}"></p>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-wrap">
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </div>
+                <div class="text-center mt-3">
+                    <div class="text-center">
+                        <span class="small">Don't have an account? <a
+                                th:href="@{/signup}">Sign up</a></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/popper.js/1.14.7/dist/umd/popper.min.js}" defer></script>
+<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js}" defer></script>
+<script th:src="@{/signup-form.js}" defer></script>
+</body>
+</html>
