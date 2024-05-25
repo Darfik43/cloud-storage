@@ -3,15 +3,10 @@ package com.darfik.cloudstorage.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
-@ToString
 public class AppUser {
 
     @Id
@@ -28,9 +23,11 @@ public class AppUser {
     @Column(unique = true)
     private String email;
     private String password;
+    private String role;
 
-    public AppUser(String email, String password) {
+    public AppUser(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 }
