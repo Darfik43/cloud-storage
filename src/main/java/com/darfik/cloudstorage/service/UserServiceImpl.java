@@ -3,16 +3,20 @@ package com.darfik.cloudstorage.service;
 import com.darfik.cloudstorage.dto.RegistrationDto;
 import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.model.AppUser;
+import com.darfik.cloudstorage.model.Role;
 import com.darfik.cloudstorage.repository.AppUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -22,7 +26,7 @@ public class UserServiceImpl implements UserService {
             AppUser appUser = new AppUser(
               registrationDto.getEmail(),
               passwordEncoder.encode(registrationDto.getPassword()),
-              "USER");
+                    Set.of(Role.ROLE_USER));
 
             appUserRepository.save(appUser);
         } else {
@@ -33,4 +37,5 @@ public class UserServiceImpl implements UserService {
     private boolean userExists(String email) {
         return appUserRepository.findByEmail(email).isPresent();
     }
+
 }

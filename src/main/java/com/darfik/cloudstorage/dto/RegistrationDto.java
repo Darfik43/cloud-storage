@@ -28,5 +28,6 @@ public class RegistrationDto {
     @NotBlank (message = "Confirm should not be null")
     @NotNull (message = "Confirm should not be null")
     private String matchingPassword;
+
 }
 
