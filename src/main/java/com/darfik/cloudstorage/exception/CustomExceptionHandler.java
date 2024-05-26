@@ -38,4 +38,5 @@ public class CustomExceptionHandler {
         model.addAttribute("errorMessage", exception.getMessage());
         return ""; //TODO
     }
+
 }

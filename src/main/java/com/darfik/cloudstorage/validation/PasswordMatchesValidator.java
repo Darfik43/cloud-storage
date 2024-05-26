@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
+
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
     }
@@ -20,4 +21,5 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
         }
         return true;
     }
+
 }

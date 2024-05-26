@@ -6,6 +6,7 @@ import org.passay.*;
 
 import java.util.Arrays;
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
+
     @Override
     public void initialize(ValidPassword constraintAnnotation) {
     }
@@ -26,4 +27,5 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         RuleResult result = validator.validate(new PasswordData(password));
         return result.isValid();
     }
+
 }
