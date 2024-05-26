@@ -3,6 +3,8 @@ package com.darfik.cloudstorage.controller;
 import com.darfik.cloudstorage.dto.RegistrationDto;
 import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,18 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/signup")
 @AllArgsConstructor
+@Tag(name = "Reg controller", description = "Reg API")
 public class RegistrationController {
-    private final UserService userService;
 
+    private final UserService userService;
 
     @GetMapping
     public String showRegistrationForm() {
         return "signup";
     }
 
+    @Operation(summary = "Reg user")
     @PostMapping
     public String registerNewUser(@Valid RegistrationDto registrationDto) throws UserAlreadyExistsException {
         userService.registerNewUser(registrationDto);
         return "redirect:/login";
     }
+
 }
