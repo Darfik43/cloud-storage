@@ -1,8 +1,6 @@
 package com.darfik.cloudstorage.config;
 
 import com.darfik.cloudstorage.security.CustomUserDetailsService;
-import com.darfik.cloudstorage.service.props.MinioProperties;
-import io.minio.MinioClient;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,18 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableWebSecurity
 public class ApplicationConfiguration {
 
-    private final MinioProperties minioProperties;
     private final CustomUserDetailsService customUserDetailsService;
-
-    @Bean
-    public MinioClient minioClient() {
-        return MinioClient.builder()
-                .endpoint(minioProperties.getUrl())
-                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
-                .build();
-    }
 
     @Bean
     public OpenAPI openAPI() {
