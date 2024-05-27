@@ -1,6 +1,7 @@
 package com.darfik.cloudstorage.service;
 
 import com.darfik.cloudstorage.dto.RegistrationDto;
+import com.darfik.cloudstorage.exception.ResourceNotFoundException;
 import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.model.AppUser;
 import com.darfik.cloudstorage.model.Role;
@@ -32,6 +33,12 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new UserAlreadyExistsException("User already exists" + registrationDto.getEmail());
         }
+    }
+
+    public AppUser getByEmail(String email) {
+        return appUserRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
     }
 
     private boolean userExists(String email) {
