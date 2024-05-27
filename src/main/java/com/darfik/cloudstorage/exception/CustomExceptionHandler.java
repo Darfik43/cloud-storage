@@ -32,9 +32,9 @@ public class CustomExceptionHandler {
         return "signup";
     }
 
-    @ExceptionHandler(FileUploadException.class)
+    @ExceptionHandler(FileOperationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleFileUploadException(FileUploadException exception, Model model) {
+    public String handleFileUploadException(FileOperationException exception, Model model) {
         model.addAttribute("errorMessage", exception.getMessage());
         return ""; //TODO
     }
