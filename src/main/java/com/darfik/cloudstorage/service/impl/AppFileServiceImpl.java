@@ -1,12 +1,12 @@
-package com.darfik.cloudstorage.service;
+package com.darfik.cloudstorage.service.impl;
 
 import com.darfik.cloudstorage.dto.*;
 import com.darfik.cloudstorage.exception.FileOperationException;
+import com.darfik.cloudstorage.service.AppFileService;
 import com.darfik.cloudstorage.service.props.MinioProperties;
 import io.minio.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +21,6 @@ public class AppFileServiceImpl implements AppFileService {
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
     private final UserServiceImpl userService;
-
 
     @Override
     public void uploadFile(FileUploadRequest fileUploadRequest) {

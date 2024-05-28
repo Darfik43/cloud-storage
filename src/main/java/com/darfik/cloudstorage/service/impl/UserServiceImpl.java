@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.service;
+package com.darfik.cloudstorage.service.impl;
 
 import com.darfik.cloudstorage.dto.RegistrationDto;
 import com.darfik.cloudstorage.exception.ResourceNotFoundException;
@@ -6,6 +6,7 @@ import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.model.AppUser;
 import com.darfik.cloudstorage.model.Role;
 import com.darfik.cloudstorage.repository.AppUserRepository;
+import com.darfik.cloudstorage.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

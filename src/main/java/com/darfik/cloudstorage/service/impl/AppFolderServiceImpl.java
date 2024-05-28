@@ -1,23 +1,23 @@
-package com.darfik.cloudstorage.service;
+package com.darfik.cloudstorage.service.impl;
 
 import com.darfik.cloudstorage.dto.FolderUploadRequest;
 import com.darfik.cloudstorage.exception.FileOperationException;
+import com.darfik.cloudstorage.service.AppFolderService;
+import com.darfik.cloudstorage.service.UserService;
 import com.darfik.cloudstorage.service.props.MinioProperties;
 import io.minio.MinioClient;
 import io.minio.SnowballObject;
-import io.minio.UploadObjectArgs;
 import io.minio.UploadSnowballObjectsArgs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AppFolderServiceImpl implements AppFolderService{
+public class AppFolderServiceImpl implements AppFolderService {
 
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;
