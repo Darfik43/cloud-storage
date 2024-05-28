@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean userExists(String email) {
-        return appUserRepository.findByEmail(email).isPresent();
+        return appUserRepository.existsByEmail(email);
     }
 
 }
