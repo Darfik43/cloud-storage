@@ -12,13 +12,13 @@ $(document).ready(function () {
         $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
     });
 });
-$(document).ready(function(){
-    $('#togglePassword').click(function(){
+$(document).ready(function () {
+    $('#togglePassword').click(function () {
         var passwordField = $('#password');
         var passwordFieldType = passwordField.attr('type');
         var toggleIcon = $('#togglePassword i');
 
-        if(passwordFieldType === 'password'){
+        if (passwordFieldType === 'password') {
             passwordField.attr('type', 'text');
             toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
         } else {

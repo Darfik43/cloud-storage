@@ -3,16 +3,17 @@ package com.darfik.cloudstorage.controller;
 import com.darfik.cloudstorage.dto.FileDeleteRequest;
 import com.darfik.cloudstorage.dto.FileRenameRequest;
 import com.darfik.cloudstorage.dto.FileUploadRequest;
+import com.darfik.cloudstorage.dto.FolderUploadRequest;
 import com.darfik.cloudstorage.service.AppFileService;
+import com.darfik.cloudstorage.service.AppFolderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class FileController {
 
     private final AppFileService appFileService;
+    private final AppFolderService appFolderService;
 
     @PostMapping("/upload")
     @Operation(summary = "Upload a file")
@@ -45,6 +47,21 @@ public class FileController {
         appFileService.deleteFile(fileDeleteRequest);
 
         return new RedirectView("/");
+    }
+
+    @GetMapping("/upfold")
+    public String showUpload() {
+        return "upload-test";
+    }
+
+    @PostMapping("/upfold")
+    public String uploadFolder(
+            @AuthenticationPrincipal User user,
+            FolderUploadRequest folderUploadRequest) {
+        folderUploadRequest.setOwner(user.getUsername());
+        appFolderService.uploadFolder(folderUploadRequest);
+
+        return "";
     }
 
 }

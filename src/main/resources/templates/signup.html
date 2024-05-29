@@ -2,30 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Signup</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/webjars/font-awesome/5.15.1/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/signup-form.css}">
     <script th:src="@{/webjars/jquery/3.5.1/dist/jquery.min.js}"></script>
 </head>
 <body>
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+<div class="container d-flex justify-content-center align-items-center"
+     style="height: 100vh;">
     <div class="signup-form">
         <div class="card-body">
             <h2 class="mb-3 text-center">Sign Up</h2>
-            <form action="#" th:action="@{/signup}" method="post">
+            <form action="#" method="post" th:action="@{/signup}">
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
-                           required>
+                    <input class="form-control" id="email" name="email"
+                           placeholder="Enter your email" required
+                           type="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
-                               oninput="checkPasswordStrength(this)" required>
+                        <input class="form-control" id="password"
+                               name="password" oninput="checkPasswordStrength(this)"
+                               placeholder="Enter your password"
+                               required type="password">
                         <div class="input-group-append">
                             <span class="input-group-text" id="togglePassword">
                                 <i class="far fa-eye-slash"></i>
@@ -35,20 +41,35 @@
                 </div>
                 <div class="form-group">
                     <label for="matchingPassword">Confirm password</label>
-                    <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="Confirm your password" required>
+                    <input class="form-control" id="matchingPassword"
+                           name="matchingPassword" placeholder="Confirm your password"
+                           required type="password">
                 </div>
                 <div class="form-text text-muted small pl-3">
-                    <ul id="password-requirements" class="list-unstyled" style="list-style-type: disc;">
-                        <li id="length-requirement" class="text-danger">At least 8 characters long</li>
-                        <li id="uppercase-requirement" class="text-danger">At least one uppercase letter</li>
-                        <li id="lowercase-requirement" class="text-danger">At least one lowercase letter</li>
-                        <li id="number-requirement" class="text-danger">At least one number</li>
-                        <li id="special-character-requirement" class="text-danger">At least one special character</li>
+                    <ul class="list-unstyled" id="password-requirements"
+                        style="list-style-type: disc;">
+                        <li class="text-danger" id="length-requirement">At least
+                            8 characters long
+                        </li>
+                        <li class="text-danger" id="uppercase-requirement">At
+                            least one uppercase letter
+                        </li>
+                        <li class="text-danger" id="lowercase-requirement">At
+                            least one lowercase letter
+                        </li>
+                        <li class="text-danger" id="number-requirement">At least
+                            one number
+                        </li>
+                        <li class="text-danger"
+                            id="special-character-requirement">At least one special character
+                        </li>
                     </ul>
                 </div>
                 <div th:if="${errors}">
                     <ul>
-                        <li class="text-danger" th:each="error : ${errors.values()}" th:text="${error}"></li>
+                        <li class="text-danger"
+                            th:each="error : ${errors.values()}"
+                            th:text="${error}"></li>
                     </ul>
                 </div>
                 <div th:if="${errorMessage}">
@@ -56,7 +77,9 @@
                     <p th:text="${errorMessage}"></p>
                 </div>
                 <div class="d-flex justify-content-center align-items-center flex-wrap">
-                    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    <button class="btn btn-primary w-100" type="submit">Sign
+                        Up
+                    </button>
                 </div>
                 <div class="text-center mt-3">
                     <div class="text-center">
@@ -68,9 +91,11 @@
         </div>
     </div>
 </div>
-<script th:src="@{/webjars/popper.js/1.14.7/dist/umd/popper.min.js}" defer></script>
-<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js}" defer></script>
-<script th:src="@{/signup-form.js}" defer></script>
-<script th:src="@{/password-validator.js}" defer></script>
+<script defer
+        th:src="@{/webjars/popper.js/1.14.7/dist/umd/popper.min.js}"></script>
+<script defer
+        th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.bundle.min.js}"></script>
+<script defer th:src="@{/signup-form.js}"></script>
+<script defer th:src="@{/password-validator.js}"></script>
 </body>
 </html>

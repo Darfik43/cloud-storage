@@ -12,7 +12,9 @@ import java.lang.annotation.*;
 public @interface PasswordMatches {
 
     String message() default "Passwords don't match";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
 }

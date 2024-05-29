@@ -15,7 +15,8 @@ import java.util.List;
 public class FolderUploadRequest extends FolderRequest {
 
     private List<MultipartFile> files;
-    public FolderUploadRequest(List <MultipartFile> files, String owner) {
+
+    public FolderUploadRequest(List<MultipartFile> files, String owner) {
         super(owner);
         this.files = files;
     }

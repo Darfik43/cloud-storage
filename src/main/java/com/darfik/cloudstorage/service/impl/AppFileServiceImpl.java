@@ -1,6 +1,9 @@
 package com.darfik.cloudstorage.service.impl;
 
-import com.darfik.cloudstorage.dto.*;
+import com.darfik.cloudstorage.dto.AppFileDto;
+import com.darfik.cloudstorage.dto.FileDeleteRequest;
+import com.darfik.cloudstorage.dto.FileRenameRequest;
+import com.darfik.cloudstorage.dto.FileUploadRequest;
 import com.darfik.cloudstorage.exception.FileOperationException;
 import com.darfik.cloudstorage.service.AppFileService;
 import com.darfik.cloudstorage.service.props.MinioProperties;
@@ -64,11 +67,11 @@ public class AppFileServiceImpl implements AppFileService {
 
     @Override
     public List<AppFileDto> getUserFiles(String email, String folder) {
-            Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
-                    .bucket(minioProperties.getBucket())
-                    .prefix(generateUserPrefix(email))
-                    .recursive(false)
-                    .build());
+        Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
+                .bucket(minioProperties.getBucket())
+                .prefix(generateUserPrefix(email))
+                .recursive(false)
+                .build());
 
         List<AppFileDto> files = new ArrayList<>();
 

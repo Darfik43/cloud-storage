@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     public void registerNewUser(RegistrationDto registrationDto) {
         if (!userExists(registrationDto.getEmail())) {
             AppUser appUser = new AppUser(
-              registrationDto.getEmail(),
-              passwordEncoder.encode(registrationDto.getPassword()),
+                    registrationDto.getEmail(),
+                    passwordEncoder.encode(registrationDto.getPassword()),
                     Set.of(Role.ROLE_USER));
 
             appUserRepository.save(appUser);

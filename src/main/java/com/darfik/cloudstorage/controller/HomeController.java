@@ -1,12 +1,9 @@
 package com.darfik.cloudstorage.controller;
 
-import com.darfik.cloudstorage.model.AppUser;
 import com.darfik.cloudstorage.service.AppFileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +20,7 @@ public class HomeController {
     @GetMapping()
     public String showHomePage(
             @AuthenticationPrincipal User user,
-            @RequestParam(value ="path", required = false, defaultValue = "") String path,
+            @RequestParam(value = "path", required = false, defaultValue = "") String path,
             Model model) {
 
         model.addAttribute(appFileService.getUserFiles(user.getUsername(), path));

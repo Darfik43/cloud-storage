@@ -49,7 +49,7 @@ public class UserServiceIntegrationTest {
         Optional<AppUser> user = appUserRepository.findByEmail("user@gmail.com");
         assertTrue(user.isPresent(), "User exists in database");
         user.ifPresent(u -> {
-            assertEquals("Emails don't match","user@gmail.com", u.getEmail());
+            assertEquals("Emails don't match", "user@gmail.com", u.getEmail());
             assertNotEquals("Password should be hashed", u.getPassword(), registrationDto.getPassword());
         });
     }
