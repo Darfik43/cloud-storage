@@ -29,7 +29,8 @@ public class AppFileServiceImpl implements AppFileService {
     public void uploadFile(FileUploadRequest fileUploadRequest) {
         MultipartFile multipartFile = fileUploadRequest.getFile();
 
-        String fileName = generateUserPrefix(fileUploadRequest.getOwner()) + fileUploadRequest.getFile().getOriginalFilename();
+        String fileName =
+                generateUserPrefix(fileUploadRequest.getOwner()) + fileUploadRequest.getFile().getOriginalFilename();
         InputStream inputStream;
         try {
             inputStream = multipartFile.getInputStream();
@@ -67,7 +68,8 @@ public class AppFileServiceImpl implements AppFileService {
 
     @Override
     public List<AppFileDto> getUserFiles(String email, String folder) {
-        Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
+        Iterable<Result<Item>> results =
+                minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(minioProperties.getBucket())
                 .prefix(generateUserPrefix(email))
                 .recursive(false)

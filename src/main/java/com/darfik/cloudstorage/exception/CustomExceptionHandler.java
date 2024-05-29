@@ -20,7 +20,8 @@ public class CustomExceptionHandler {
         exception.getBindingResult()
                 .getFieldErrors()
                 .forEach(error ->
-                        errors.put(error.getField(), error.getDefaultMessage()));
+                        errors.put(error.getField(),
+                                error.getDefaultMessage()));
 
         model.addAttribute("errors", errors);
         return "signup";
@@ -35,7 +36,8 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(FileOperationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleFileUploadException(FileOperationException exception, Model model) {
+    public String handleFileUploadException(FileOperationException exception,
+                                            Model model) {
         model.addAttribute("errorMessage", exception.getMessage());
         return ""; //TODO
     }

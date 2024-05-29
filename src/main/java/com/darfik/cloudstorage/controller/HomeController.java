@@ -20,7 +20,8 @@ public class HomeController {
     @GetMapping()
     public String showHomePage(
             @AuthenticationPrincipal User user,
-            @RequestParam(value = "path", required = false, defaultValue = "") String path,
+            @RequestParam(value = "path", required = false,
+                    defaultValue = "") String path,
             Model model) {
 
         model.addAttribute(appFileService.getUserFiles(user.getUsername(), path));

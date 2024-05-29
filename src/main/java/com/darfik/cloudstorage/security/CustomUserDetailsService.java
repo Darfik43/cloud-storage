@@ -20,7 +20,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND_MESSAGE = "User with email %s not found";
+    private final static String USER_NOT_FOUND_MESSAGE = "User with email %s " +
+            "not found";
     private final AppUserRepository appUserRepository;
 
     @Override

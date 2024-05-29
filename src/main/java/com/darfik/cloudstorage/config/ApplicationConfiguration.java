@@ -41,7 +41,8 @@ public class ApplicationConfiguration {
                     registry.requestMatchers("/swagger-ui/**").permitAll();
                     registry.requestMatchers("/v3/api-docs/**").permitAll();
                     registry.requestMatchers("/webjars/**").permitAll();
-                    registry.requestMatchers("/signup-form.js", "/signup-form.css", "/password-validator.js").permitAll();
+                    registry.requestMatchers("/signup-form.js", "/signup-form" +
+                            ".css", "/password-validator.js").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer ->

@@ -25,7 +25,8 @@ import static org.springframework.test.util.AssertionErrors.assertNotEquals;
 public class UserServiceIntegrationTest {
 
     @Container
-    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest");
+    private static final PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:latest");
 
     @Autowired
     private UserService userService;
@@ -46,11 +47,13 @@ public class UserServiceIntegrationTest {
 
         userService.registerNewUser(registrationDto);
 
-        Optional<AppUser> user = appUserRepository.findByEmail("user@gmail.com");
+        Optional<AppUser> user = appUserRepository.findByEmail("user@gmail" +
+                ".com");
         assertTrue(user.isPresent(), "User exists in database");
         user.ifPresent(u -> {
             assertEquals("Emails don't match", "user@gmail.com", u.getEmail());
-            assertNotEquals("Password should be hashed", u.getPassword(), registrationDto.getPassword());
+            assertNotEquals("Password should be hashed", u.getPassword(),
+                    registrationDto.getPassword());
         });
     }
 
@@ -66,7 +69,8 @@ public class UserServiceIntegrationTest {
                 UserAlreadyExistsException.class,
                 () -> userService.registerNewUser(registrationDto)
         );
-        assertEquals("User should be saved only once", appUserRepository.findAll().size(), 1);
+        assertEquals("User should be saved only once",
+                appUserRepository.findAll().size(), 1);
     }
 
 }

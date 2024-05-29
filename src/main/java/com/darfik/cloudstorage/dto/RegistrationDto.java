@@ -20,7 +20,8 @@ public class RegistrationDto {
 
     @NotBlank(message = "email should not be null")
     @NotNull
-    @Email(message = "Invalid email", regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @Email(message = "Invalid email", regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^" +
+            ".-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     @NotBlank(message = "password should not be null")
