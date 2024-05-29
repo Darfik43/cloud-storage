@@ -2,6 +2,7 @@ package com.darfik.cloudstorage.controller;
 
 import com.darfik.cloudstorage.dto.AppFileDto;
 import com.darfik.cloudstorage.service.AppFileService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,13 +17,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-@Tag(name = "Home controller", description = "Home API")
+@Tag(name = "Home controller", description = "Retrieving user's storage from Storage")
 @RequiredArgsConstructor
 public class HomeController {
 
     private final AppFileService appFileService;
 
     @GetMapping("/")
+    @Operation
     public String getFiles(@RequestParam(required = false) String path,
                            @AuthenticationPrincipal User user, Model model) {
         String currentPath = path != null ? path : "";

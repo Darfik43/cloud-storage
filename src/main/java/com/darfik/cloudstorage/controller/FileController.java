@@ -19,13 +19,13 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/files")
 @RequiredArgsConstructor
-@Tag(name = "File controller", description = "File controller")
+@Tag(name = "File controller", description = "File interaction API, it doesn't work with folders")
 public class FileController {
 
     private final AppFileService appFileService;
 
     @PostMapping("/upload")
-    @Operation(summary = "Upload a file")
+    @Operation
     public RedirectView uploadFile(@AuthenticationPrincipal User user,
                                    @Valid FileUploadRequest fileUploadRequest) {
         fileUploadRequest.setOwner(user.getUsername());
@@ -35,7 +35,7 @@ public class FileController {
     }
 
     @PostMapping("/rename")
-    @Operation(summary = "Rename a file")
+    @Operation
     public RedirectView renameFile(@AuthenticationPrincipal User user,
                                    @Valid FileRenameRequest fileRenameRequest) {
         fileRenameRequest.setOwner(user.getUsername());
@@ -45,7 +45,7 @@ public class FileController {
     }
 
     @DeleteMapping("/delete")
-    @Operation(summary = "Delete a file")
+    @Operation
     public RedirectView deleteFile(@AuthenticationPrincipal User user,
                                    @Valid FileDeleteRequest fileDeleteRequest) {
         fileDeleteRequest.setOwner(user.getUsername());

@@ -15,17 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/signup")
 @AllArgsConstructor
-@Tag(name = "Reg controller", description = "Reg API")
+@Tag(name = "Registration controller", description = "Registration API")
 public class RegistrationController {
 
     private final UserService userService;
 
     @GetMapping
+    @Operation
     public String showRegistrationForm() {
         return "signup";
     }
 
-    @Operation(summary = "Reg user")
+    @Operation(summary = "Register a new user")
     @PostMapping
     public String registerNewUser(@Valid RegistrationDto registrationDto) throws UserAlreadyExistsException {
         userService.registerNewUser(registrationDto);
