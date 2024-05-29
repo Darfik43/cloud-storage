@@ -23,9 +23,11 @@ public class HomeController {
     private final AppFileService appFileService;
 
     @GetMapping("/")
-    public String getFiles(@RequestParam(required = false) String path, @AuthenticationPrincipal User user, Model model) {
+    public String getFiles(@RequestParam(required = false) String path,
+                           @AuthenticationPrincipal User user, Model model) {
         String currentPath = path != null ? path : "";
-        List<AppFileDto> folderContent = appFileService.getUserFiles(user.getUsername(), currentPath);
+        List<AppFileDto> folderContent =
+                appFileService.getUserFiles(user.getUsername(), currentPath);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);

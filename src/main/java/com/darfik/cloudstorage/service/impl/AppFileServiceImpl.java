@@ -70,10 +70,10 @@ public class AppFileServiceImpl implements AppFileService {
     public List<AppFileDto> getUserFiles(String email, String folder) {
         Iterable<Result<Item>> results =
                 minioClient.listObjects(ListObjectsArgs.builder()
-                .bucket(minioProperties.getBucket())
-                .prefix(getUserFolderPrefix(email) + folder)
-                .recursive(false)
-                .build());
+                        .bucket(minioProperties.getBucket())
+                        .prefix(getUserFolderPrefix(email) + folder)
+                        .recursive(false)
+                        .build());
 
         List<AppFileDto> files = new ArrayList<>();
 

@@ -31,14 +31,17 @@ public class AppFolderServiceImpl implements AppFolderService {
     @Override
     public void uploadFolder(FolderUploadRequest folderUploadRequest) {
         List<MultipartFile> files = folderUploadRequest.getFiles();
-        List<SnowballObject> objects = createSnowballObjects(files, getUserBucketPrefix(folderUploadRequest.getOwner()));
+        List<SnowballObject> objects = createSnowballObjects(files,
+                getUserBucketPrefix(folderUploadRequest.getOwner()));
         uploadObjects(objects);
     }
 
     @Override
     public void renameFolder(FolderRenameRequest folderRenameRequest) {
-        String oldPrefix = getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getCurrentName() + "/";
-        String newPrefix = getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getNewName() + "/";
+        String oldPrefix =
+                getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getCurrentName() + "/";
+        String newPrefix =
+                getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getNewName() + "/";
         renameFolderObjects(oldPrefix, newPrefix);
     }
 
@@ -47,7 +50,8 @@ public class AppFolderServiceImpl implements AppFolderService {
         for (MultipartFile file : files) {
             String fileName = userPrefix + file.getOriginalFilename();
             try {
-                objects.add(new SnowballObject(fileName, file.getInputStream(), file.getSize(), null));
+                objects.add(new SnowballObject(fileName,
+                        file.getInputStream(), file.getSize(), null));
             } catch (Exception e) {
                 throw new FileOperationException("Error uploading folder: " + e.getMessage());
             }
@@ -78,8 +82,10 @@ public class AppFolderServiceImpl implements AppFolderService {
             List<SnowballObject> newObjects = new ArrayList<>();
             for (Result<Item> result : objects) {
                 Item item = result.get();
-                String newObjectName = newPrefix + item.objectName().substring(oldPrefix.length());
-                newObjects.add(createSnowballObjectFromItem(item, newObjectName));
+                String newObjectName =
+                        newPrefix + item.objectName().substring(oldPrefix.length());
+                newObjects.add(createSnowballObjectFromItem(item,
+                        newObjectName));
             }
 
             deleteOldObjects(objects);
@@ -90,9 +96,11 @@ public class AppFolderServiceImpl implements AppFolderService {
         }
     }
 
-    private SnowballObject createSnowballObjectFromItem(Item item, String newObjectName) {
+    private SnowballObject createSnowballObjectFromItem(Item item,
+                                                        String newObjectName) {
         try {
-            return new SnowballObject(newObjectName, minioClient.getObject(GetObjectArgs.builder()
+            return new SnowballObject(newObjectName,
+                    minioClient.getObject(GetObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
                     .object(item.objectName())
                     .build()), item.size(), ZonedDateTime.now());

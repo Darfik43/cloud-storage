@@ -14,7 +14,8 @@ public class FolderRenameRequest extends FolderRequest {
     private String currentName;
     private String newName;
 
-    public FolderRenameRequest(String currentName, String newName, String owner) {
+    public FolderRenameRequest(String currentName, String newName,
+                               String owner) {
         super(owner);
         this.currentName = currentName;
         this.newName = newName;

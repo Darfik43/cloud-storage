@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Cloud Storage</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          rel="stylesheet">
     <style>
         .file-item {
             cursor: pointer;
         }
+
         .file-icon {
             font-size: 24px;
             vertical-align: middle;
         }
+
         .file-name {
             margin-left: 10px;
         }
@@ -23,7 +26,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page" th:text="${currentPath}"></li>
+            <li aria-current="page" class="breadcrumb-item active"
+                th:text="${currentPath}"></li>
         </ol>
     </nav>
     <div class="row">
@@ -36,9 +40,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="file : ${folderContent}" th:classappend="${file.isDir} ? 'table-active' : ''">
+                <tr th:classappend="${file.isDir} ? 'table-active' : ''"
+                    th:each="file : ${folderContent}">
                     <td class="file-item">
-                        <a th:href="@{'/' + '?path=' + ${file.getName()}}" th:text="${file.name}"></a>
+                        <a th:href="@{'/' + '?path=' + ${file.getName()}}"
+                           th:text="${file.name}"></a>
                     </td>
                     <td th:text="${file.isDir} ? 'Folder' : 'File'"></td>
                 </tr>
