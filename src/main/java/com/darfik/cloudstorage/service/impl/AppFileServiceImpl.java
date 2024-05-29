@@ -30,7 +30,7 @@ public class AppFileServiceImpl implements AppFileService {
         MultipartFile multipartFile = fileUploadRequest.getFile();
 
         String fileName =
-                generateUserPrefix(fileUploadRequest.getOwner()) + fileUploadRequest.getFile().getOriginalFilename();
+                getUserFolderPrefix(fileUploadRequest.getOwner()) + fileUploadRequest.getFile().getOriginalFilename();
         InputStream inputStream;
         try {
             inputStream = multipartFile.getInputStream();
@@ -49,10 +49,10 @@ public class AppFileServiceImpl implements AppFileService {
         try {
             minioClient.copyObject(CopyObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
-                    .object(generateUserPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getNewName())
+                    .object(getUserFolderPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getNewName())
                     .source(CopySource.builder()
                             .bucket(minioProperties.getBucket())
-                            .object(generateUserPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getCurrentName())
+                            .object(getUserFolderPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getCurrentName())
                             .build())
                     .build());
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class AppFileServiceImpl implements AppFileService {
         Iterable<Result<Item>> results =
                 minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(minioProperties.getBucket())
-                .prefix(generateUserPrefix(email))
+                .prefix(getUserFolderPrefix(email) + folder)
                 .recursive(false)
                 .build());
 
@@ -83,8 +83,8 @@ public class AppFileServiceImpl implements AppFileService {
                 AppFileDto appFileDto = new AppFileDto(
                         email,
                         item.isDir(),
-                        item.objectName().replaceAll(generateUserPrefix(email), ""),
-                        item.objectName()
+                        item.objectName(),
+                        item.objectName().substring(getUserFolderPrefix(email).length())
                 );
                 files.add(appFileDto);
             } catch (Exception e) {
@@ -99,15 +99,15 @@ public class AppFileServiceImpl implements AppFileService {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
-                    .object(generateUserPrefix(fileDeleteRequest.getOwner()) + fileDeleteRequest.getPath())
+                    .object(getUserFolderPrefix(fileDeleteRequest.getOwner()) + fileDeleteRequest.getPath())
                     .build());
         } catch (Exception e) {
             throw new FileOperationException("File delete failed" + e.getMessage());
         }
     }
 
-    private String generateUserPrefix(String email) {
-        return "user-" + userService.getByEmail(email).getId() + "-files/";
+    private String getUserFolderPrefix(String email) {
+        return "user-" + userService.getUserIdByEmail(email) + "-files/";
     }
 
 }
