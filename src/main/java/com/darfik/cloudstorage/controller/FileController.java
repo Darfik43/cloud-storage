@@ -1,9 +1,6 @@
 package com.darfik.cloudstorage.controller;
 
-import com.darfik.cloudstorage.dto.FileDeleteRequest;
-import com.darfik.cloudstorage.dto.FileRenameRequest;
-import com.darfik.cloudstorage.dto.FileUploadRequest;
-import com.darfik.cloudstorage.dto.FolderUploadRequest;
+import com.darfik.cloudstorage.dto.*;
 import com.darfik.cloudstorage.service.AppFileService;
 import com.darfik.cloudstorage.service.AppFolderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,11 +20,12 @@ import org.springframework.web.servlet.view.RedirectView;
 public class FileController {
 
     private final AppFileService appFileService;
-    private final AppFolderService appFolderService;
 
     @PostMapping("/upload")
     @Operation(summary = "Upload a file")
-    public RedirectView uploadFile(@Valid @ModelAttribute("fileUploadRequest") FileUploadRequest fileUploadRequest) {
+    public RedirectView uploadFile(@AuthenticationPrincipal User user,
+                                   @Valid FileUploadRequest fileUploadRequest) {
+        fileUploadRequest.setOwner(user.getUsername());
         appFileService.uploadFile(fileUploadRequest);
 
         return new RedirectView("/");
@@ -35,7 +33,9 @@ public class FileController {
 
     @PostMapping("/rename")
     @Operation(summary = "Rename a file")
-    public RedirectView renameFile(@Valid @ModelAttribute("fileRenameRequest") FileRenameRequest fileRenameRequest) {
+    public RedirectView renameFile(@AuthenticationPrincipal User user,
+                                   @Valid FileRenameRequest fileRenameRequest) {
+        fileRenameRequest.setOwner(user.getUsername());
         appFileService.renameFile(fileRenameRequest);
 
         return new RedirectView("/");
@@ -43,25 +43,12 @@ public class FileController {
 
     @DeleteMapping("/delete")
     @Operation(summary = "Delete a file")
-    public RedirectView deleteFile(@Valid @ModelAttribute("fileDeleteRequest") FileDeleteRequest fileDeleteRequest) {
+    public RedirectView deleteFile(@AuthenticationPrincipal User user,
+                                   @Valid FileDeleteRequest fileDeleteRequest) {
+        fileDeleteRequest.setOwner(user.getUsername());
         appFileService.deleteFile(fileDeleteRequest);
 
         return new RedirectView("/");
-    }
-
-    @GetMapping("/upfold")
-    public String showUpload() {
-        return "upload-test";
-    }
-
-    @PostMapping("/upfold")
-    public String uploadFolder(
-            @AuthenticationPrincipal User user,
-            FolderUploadRequest folderUploadRequest) {
-        folderUploadRequest.setOwner(user.getUsername());
-        appFolderService.uploadFolder(folderUploadRequest);
-
-        return "";
     }
 
 }
