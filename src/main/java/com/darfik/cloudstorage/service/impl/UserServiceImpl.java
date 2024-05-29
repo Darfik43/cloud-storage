@@ -36,10 +36,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public AppUser getByEmail(String email) {
+    public Long getUserIdByEmail(String email) {
         return appUserRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User not found"));
+                .map(AppUser::getId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User with email " + email + " not found"));
     }
 
     private boolean userExists(String email) {
