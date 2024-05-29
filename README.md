@@ -5,10 +5,24 @@
 ## English Version
 
 ## Description
+(In development stage)
 
-Cloud file storage pet-project. In the development stage
+Cloud file storage. It's a multiuser web-application on Spring Boot. Feel free to
+proceed basic operations with files and folders in cloud-storage: Upload,
+rename, delete
 
-## Technologies Used
+## Sequence diagram
+![Sequence diagram](docs/sequence-diagram.png)
+
+## Component diagram
+![Component diagram](docs/component-diagram.png)
+
+## End-points
+
+![End-points](docs/end-points.png)
+
+
+## Tech stack
 
 ### Back-end:
 
@@ -19,7 +33,6 @@ Cloud file storage pet-project. In the development stage
     * Session
     * Data JPA
 - Thymeleaf
-- JUnit
 - PostgreSQL
 
 ### Front-end:
@@ -29,15 +42,21 @@ Cloud file storage pet-project. In the development stage
 - Bootstrap
 - JavaScript
 
-### Deploy
+### Testing:
+- JUnit 5
+- Testcontainers
+- Mockito
 
+### Deploy
 - Docker
 
 ## Implementation
 
-### MVCs pattern
+DDD pattern
 
 ## Installation and Running
+
+In progress
 
 ## Authors
 
@@ -49,13 +68,27 @@ darfik43@gmail.com
 
 ## Русская версия
 
-# cloud-storage (В разработке)
+# cloud-storage
 
 ## Описание
 
-Пет-проект облачного хранилища файлов. На стадии разработки
+(В разработке)
 
-## Используемые технологии
+Облачное хранилище файлов. Многопользовательское веб-приложение построенное с использованием
+Spring boot. На данный момент обладает всей базовой функциональностю облака: 
+загрузить, переименовать, удалить
+
+## Диаграмма последовательности
+![Sequence diagram](docs/sequence-diagram.png)
+
+## Диаграмма компонентов
+![Component diagram](docs/component-diagram.png)
+
+## Энд-поинты API
+
+![End-points](docs/end-points.png)
+
+## Стэк технологий
 
 ### Back-end:
 
@@ -76,15 +109,20 @@ darfik43@gmail.com
 - Bootstrap
 - JavaScript
 
+### Testing:
+- JUnit 5
+- Testcontainers
+- Mockito
+
 ### Deploy
 
 - Docker
 
 ## Реализация
-
-### Паттерн MVC
+Шаблон DDD
 
 ## Установка и запуск
+В разработке
 
 ## Автор
 
