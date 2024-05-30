@@ -29,7 +29,7 @@ public class HomeController {
                            @AuthenticationPrincipal User user, Model model) {
         String currentPath = path != null ? path : "";
         List<AppFileDto> folderContent =
-                appFileService.getUserFiles(user.getUsername(), currentPath);
+                appFileService.getUserFiles(user.getUsername(), currentPath, false);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);
