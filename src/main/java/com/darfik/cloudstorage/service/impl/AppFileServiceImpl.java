@@ -67,12 +67,12 @@ public class AppFileServiceImpl implements AppFileService {
     }
 
     @Override
-    public List<AppFileDto> getUserFiles(String email, String folder) {
+    public List<AppFileDto> getUserFiles(String email, String folder, boolean recursive) {
         Iterable<Result<Item>> results =
                 minioClient.listObjects(ListObjectsArgs.builder()
                         .bucket(minioProperties.getBucket())
                         .prefix(getUserFolderPrefix(email) + folder)
-                        .recursive(false)
+                        .recursive(recursive)
                         .build());
 
         List<AppFileDto> files = new ArrayList<>();
@@ -80,11 +80,13 @@ public class AppFileServiceImpl implements AppFileService {
         results.forEach(result -> {
             try {
                 Item item = result.get();
+                String path = getPath(item.objectName(), email);
+                String name = getFileName(item.objectName(), email);
                 AppFileDto appFileDto = new AppFileDto(
                         email,
                         item.isDir(),
-                        item.objectName(),
-                        item.objectName().substring(getUserFolderPrefix(email).length())
+                        path,
+                        name
                 );
                 files.add(appFileDto);
             } catch (Exception e) {
@@ -110,4 +112,11 @@ public class AppFileServiceImpl implements AppFileService {
         return "user-" + userService.getUserIdByEmail(email) + "-files/";
     }
 
+    private String getPath(String name, String email) {
+        return name.substring(getUserFolderPrefix(email).length(), name.lastIndexOf("/") + 1);
+    }
+
+    private String getFileName(String path, String email) {
+        return path.endsWith("/") ? path.substring(getUserFolderPrefix(email).length(), path.lastIndexOf("/") + 1) : path.substring(path.lastIndexOf("/") + 1);
+    }
 }
