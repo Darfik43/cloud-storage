@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Cloud Storage</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .file-item {
             cursor: pointer;
@@ -26,12 +25,18 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-            <li aria-current="page" class="breadcrumb-item active"
-                th:text="${currentPath}"></li>
+            <li aria-current="page" class="breadcrumb-item active" th:text="${currentPath}"></li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12">
+            <form action="/search" method="get" class="form-inline mb-4">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="searchTerm" class="sr-only">Search Term</label>
+                    <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search Term" th:value="${searchTerm}" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -40,16 +45,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:classappend="${file.isDir} ? 'table-active' : ''"
-                    th:each="file : ${folderContent}">
+                <tr th:classappend="${file.isDir} ? 'table-active' : ''" th:each="file : ${folderContent}">
                     <td class="file-item">
-                        <a th:href="@{'/' + '?path=' + ${file.getName()}}"
-                           th:text="${file.name}"></a>
+                        <span th:if="${not file.isDir()}" th:text="${file.getName()}"></span>
+                        <a th:if="${file.isDir()}" th:href="@{'/' + '?path=' + ${file.getPath()}}" th:text="${file.getName()}"></a>
                     </td>
                     <td th:text="${file.isDir} ? 'Folder' : 'File'"></td>
                 </tr>
                 </tbody>
             </table>
+            <div th:if="${searchResults}">
+                <h3>Search Results</h3>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${searchResults}">
+                        <td class="file-item">
+                            <a th:href="@{'/' + '?path=' + ${result.getPath() + result.getName()}}" th:text="${result.getPath()}"></a>
+                        </td>
+                        <td th:text="${result.isDir} ? 'Folder' : 'File'"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
