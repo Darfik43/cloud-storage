@@ -15,5 +15,5 @@ public interface AppFileService {
 
     void deleteFile(FileDeleteRequest fileDeleteRequest);
 
-    List<AppFileDto> getUserFiles(String email, String folder);
+    List<AppFileDto> getUserFiles(String email, String folder, boolean recursive);
 }
