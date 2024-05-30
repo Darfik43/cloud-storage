@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.config;
 
-import com.darfik.cloudstorage.service.props.MinioProperties;
+import com.darfik.cloudstorage.domain.s3storage.MinioProperties;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;

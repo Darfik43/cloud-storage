@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.config;
 
-import com.darfik.cloudstorage.security.CustomUserDetailsService;
+import com.darfik.cloudstorage.web.security.CustomUserDetailsService;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,17 +38,27 @@ public class ApplicationConfiguration {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/signup/**").permitAll();
-                    registry.requestMatchers("/swagger-ui/**").permitAll();
-                    registry.requestMatchers("/v3/api-docs/**").permitAll();
-                    registry.requestMatchers("/webjars/**").permitAll();
-                    registry.requestMatchers("/signup-form.js", "/signup-form" +
-                            ".css", "/password-validator.js").permitAll();
+                    registry.requestMatchers("/signup/**")
+                            .permitAll();
+                    registry.requestMatchers("/login/**")
+                            .permitAll();
+                    registry.requestMatchers("/swagger-ui/**")
+                            .permitAll();
+                    registry.requestMatchers("/v3/api-docs/**")
+                            .permitAll();
+                    registry.requestMatchers("/webjars/**")
+                            .permitAll();
+                    registry.requestMatchers("/signup-form.js", "/signup-form.css",
+                                    "/password-validator.js")
+                            .permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer ->
                         httpSecurityFormLoginConfigurer.loginPage("/login").usernameParameter("email")
-                                .defaultSuccessUrl("/").permitAll());
+                                .defaultSuccessUrl("/").permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher(
+                                "/logout")));
 
         return httpSecurity.build();
     }

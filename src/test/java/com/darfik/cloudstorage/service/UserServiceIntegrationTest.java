@@ -1,10 +1,11 @@
 package com.darfik.cloudstorage.service;
 
 
-import com.darfik.cloudstorage.dto.RegistrationDto;
-import com.darfik.cloudstorage.exception.UserAlreadyExistsException;
-import com.darfik.cloudstorage.model.AppUser;
-import com.darfik.cloudstorage.repository.AppUserRepository;
+import com.darfik.cloudstorage.domain.user.UserService;
+import com.darfik.cloudstorage.domain.user.RegistrationDto;
+import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
+import com.darfik.cloudstorage.domain.user.AppUser;
+import com.darfik.cloudstorage.domain.user.AppUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
