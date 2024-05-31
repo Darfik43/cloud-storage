@@ -8,7 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String searchFiles(@AuthenticationPrincipal User owner, SearchRequest searchRequest, Model model) {
         List<FileResponse> searchResults = searchService.searchFiles(searchRequest, owner.getUsername());
         model.addAttribute("searchResults", searchResults);
-        return "home";
+        return "search-results";
     }
 
 }
