@@ -45,7 +45,7 @@ public class MinioS3FolderService implements S3FolderService {
                     .objects(objects)
                     .build());
         } catch (Exception e) {
-            throw new FileOperationException("Error uploading folder: " + e.getMessage());
+            throw new FileOperationException("Error uploading files: " + e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class MinioS3FolderService implements S3FolderService {
             deleteOldObjects(objects);
             uploadObjects(newObjects);
         } catch (Exception e) {
-            throw new FileOperationException("Error renaming folder: " + e.getMessage());
+            throw new FileOperationException("Error renaming files: " + e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class MinioS3FolderService implements S3FolderService {
                 objects.add(new SnowballObject(fileName,
                         file.getInputStream(), file.getSize(), null));
             } catch (Exception e) {
-                throw new FileOperationException("Error uploading folder: " + e.getMessage());
+                throw new FileOperationException("Error uploading files: " + e.getMessage());
             }
         }
         return objects;
