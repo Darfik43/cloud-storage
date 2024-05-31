@@ -9,14 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class FileDeleteRequest extends FileRequest {
 
     @NotNull(message = "Failed while getting file path")
     private String path;
 
-    public FileDeleteRequest(String path, String owner) {
-        super(owner);
+    public FileDeleteRequest(String path) {
+        super();
         this.path = path;
     }
 

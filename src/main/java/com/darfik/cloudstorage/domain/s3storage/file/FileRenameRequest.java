@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class FileRenameRequest extends FileRequest {
 
     @NotBlank(message = "Current name can't be blank")
@@ -21,9 +20,8 @@ public class FileRenameRequest extends FileRequest {
     @NotBlank(message = "Can't get the path of the file")
     private String path;
 
-    public FileRenameRequest(String owner, String currentName, String newName
-            , String path) {
-        super(owner);
+    public FileRenameRequest(String currentName, String newName, String path) {
+        super();
         this.currentName = currentName;
         this.newName = newName;
         this.path = path;

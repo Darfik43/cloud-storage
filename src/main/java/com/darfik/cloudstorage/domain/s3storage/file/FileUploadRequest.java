@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -16,8 +15,8 @@ public class FileUploadRequest extends FileRequest {
     @NotNull(message = "You can't upload nothing")
     private MultipartFile file;
 
-    public FileUploadRequest(String owner, MultipartFile file) {
-        super(owner);
+    public FileUploadRequest(MultipartFile file) {
+        super();
         this.file = file;
     }
 
