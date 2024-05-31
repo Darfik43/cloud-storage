@@ -1,16 +1,14 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import com.darfik.cloudstorage.domain.s3storage.file.FileDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.FileRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.FileUploadRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +18,13 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/files")
 @RequiredArgsConstructor
-@Tag(name = "File controller", description = "File interaction API, it doesn't work with folders")
+@Tag(name = "File controller", description = "File interaction API, it " +
+        "doesn't work with folders")
 public class FileController {
 
     private final S3FileService s3FileService;
-    private final String owner = SecurityContextHolder.getContext().getAuthentication().getName();
+    private final String owner =
+            SecurityContextHolder.getContext().getAuthentication().getName();
 
     @PostMapping("/upload")
     @Operation

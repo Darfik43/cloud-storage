@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.domain.s3storage.folder;
 
-import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
+import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.user.UserService;
 import io.minio.*;
 import io.minio.messages.Item;
@@ -42,7 +42,8 @@ public class MinioS3FolderService implements S3FolderService {
         renameFolderObjects(oldPrefix, newPrefix);
     }
 
-    private List<SnowballObject> createSnowballObjects(List<MultipartFile> files, String userPrefix) {
+    private List<SnowballObject> createSnowballObjects(List<MultipartFile> files,
+                                                       String userPrefix) {
         List<SnowballObject> objects = new ArrayList<>();
         for (MultipartFile file : files) {
             String fileName = userPrefix + file.getOriginalFilename();
@@ -98,9 +99,9 @@ public class MinioS3FolderService implements S3FolderService {
         try {
             return new SnowballObject(newObjectName,
                     minioClient.getObject(GetObjectArgs.builder()
-                    .bucket(minioProperties.getBucket())
-                    .object(item.objectName())
-                    .build()), item.size(), ZonedDateTime.now());
+                            .bucket(minioProperties.getBucket())
+                            .object(item.objectName())
+                            .build()), item.size(), ZonedDateTime.now());
         } catch (Exception e) {
             throw new FileOperationException("Error creating object: " + e.getMessage());
         }

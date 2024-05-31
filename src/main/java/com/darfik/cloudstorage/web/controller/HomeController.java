@@ -17,7 +17,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-@Tag(name = "Home controller", description = "Retrieving user's storage from Storage")
+@Tag(name = "Home controller", description = "Retrieving user's storage from " +
+        "Storage")
 @RequiredArgsConstructor
 public class HomeController {
 
@@ -26,10 +27,12 @@ public class HomeController {
     @GetMapping("/")
     @Operation
     public String showHomePage(@RequestParam(required = false) String path,
-                           @AuthenticationPrincipal User user, Model model) {
+                               @AuthenticationPrincipal User user,
+                               Model model) {
         String currentPath = path != null ? path : "";
         List<FileDto> folderContent =
-                s3FileService.getUserFiles(user.getUsername(), currentPath, false);
+                s3FileService.getUserFiles(user.getUsername(), currentPath,
+                        false);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);

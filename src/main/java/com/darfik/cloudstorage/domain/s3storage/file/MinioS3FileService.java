@@ -1,8 +1,8 @@
 package com.darfik.cloudstorage.domain.s3storage.file;
 
+import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.user.UserServiceImpl;
-import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import io.minio.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +63,8 @@ public class MinioS3FileService implements S3FileService {
     }
 
     @Override
-    public List<FileDto> getUserFiles(String email, String folder, boolean recursive) {
+    public List<FileDto> getUserFiles(String email, String folder,
+                                      boolean recursive) {
         Iterable<Result<Item>> results =
                 minioClient.listObjects(ListObjectsArgs.builder()
                         .bucket(minioProperties.getBucket())
@@ -77,7 +78,8 @@ public class MinioS3FileService implements S3FileService {
             try {
                 Item item = result.get();
                 String path = folder;
-                String name = item.objectName().substring((getUserFolderPrefix(email) + folder).length());
+                String name =
+                        item.objectName().substring((getUserFolderPrefix(email) + folder).length());
                 FileDto fileDto = new FileDto(
                         email,
                         item.isDir(),
@@ -109,10 +111,14 @@ public class MinioS3FileService implements S3FileService {
     }
 
     private String getPath(String name, String email) {
-        return name.substring(getUserFolderPrefix(email).length(), name.lastIndexOf("/") + 1);
+        return name.substring(getUserFolderPrefix(email).length(),
+                name.lastIndexOf("/") + 1);
     }
 
     private String getFileName(String path, String email) {
-        return path.endsWith("/") ? path.substring(getUserFolderPrefix(email).length(), path.lastIndexOf("/") + 1) : path.substring(path.lastIndexOf("/") + 1);
+        return path.endsWith("/") ?
+                path.substring(getUserFolderPrefix(email).length(),
+                        path.lastIndexOf("/") + 1) :
+                path.substring(path.lastIndexOf("/") + 1);
     }
 }

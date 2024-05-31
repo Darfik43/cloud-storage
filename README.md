@@ -5,22 +5,25 @@
 ## English Version
 
 ## Description
+
 (In development stage)
 
-Cloud file storage. It's a multiuser web-application on Spring Boot. Feel free to
+Cloud file storage. It's a multiuser web-application on Spring Boot. Feel free
+to
 proceed basic operations with files and folders in cloud-storage: Upload,
 rename, delete
 
 ## Sequence diagram
+
 ![Sequence diagram](docs/sequence-diagram.png)
 
 ## Component diagram
+
 ![Component diagram](docs/component-diagram.png)
 
 ## End-points
 
 ![End-points](docs/end-points.png)
-
 
 ## Tech stack
 
@@ -43,11 +46,13 @@ rename, delete
 - JavaScript
 
 ### Testing:
+
 - JUnit 5
 - Testcontainers
 - Mockito
 
 ### Deploy
+
 - Docker
 
 ## Implementation
@@ -74,14 +79,17 @@ darfik43@gmail.com
 
 (В разработке)
 
-Облачное хранилище файлов. Многопользовательское веб-приложение построенное с использованием
-Spring boot. На данный момент обладает всей базовой функциональностю облака: 
+Облачное хранилище файлов. Многопользовательское веб-приложение построенное с
+использованием
+Spring boot. На данный момент обладает всей базовой функциональностю облака:
 загрузить, переименовать, удалить
 
 ## Диаграмма последовательности
+
 ![Sequence diagram](docs/sequence-diagram.png)
 
 ## Диаграмма компонентов
+
 ![Component diagram](docs/component-diagram.png)
 
 ## Энд-поинты API
@@ -110,6 +118,7 @@ Spring boot. На данный момент обладает всей базов
 - JavaScript
 
 ### Testing:
+
 - JUnit 5
 - Testcontainers
 - Mockito
@@ -123,6 +132,7 @@ Spring boot. На данный момент обладает всей базов
 Шаблон DDD
 
 ## Установка и запуск
+
 В разработке
 
 ## Автор

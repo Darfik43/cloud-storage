@@ -17,7 +17,8 @@ public class ExceptionAdviser {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handleInvalidArgument(MethodArgumentNotValidException exception, Model model) {
+    public String handleInvalidArgument(MethodArgumentNotValidException exception,
+                                        Model model) {
         Map<String, String> errors = new LinkedHashMap<>();
         exception.getBindingResult()
                 .getFieldErrors()
@@ -31,7 +32,8 @@ public class ExceptionAdviser {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public String handleUserAlreadyExistsException(UserAlreadyExistsException exception, Model model) {
+    public String handleUserAlreadyExistsException(UserAlreadyExistsException exception,
+                                                   Model model) {
         model.addAttribute("errorMessage", exception.getMessage());
         return "signup";
     }
