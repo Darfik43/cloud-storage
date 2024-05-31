@@ -5,99 +5,12 @@
     <title>Cloud Storage</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 600;
-            color: #343a40;
-        }
-
-        .breadcrumb {
-            background-color: #e9ecef;
-            border-radius: 0.25rem;
-        }
-
-        .form-inline {
-            border-bottom: 2px solid #343a40;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-
-        .form-control {
-            border-radius: 20px;
-            padding: 10px 20px;
-        }
-
-        .btn {
-            border-radius: 20px;
-        }
-
-        .table {
-            margin-top: 30px;
-        }
-
-        .file-item {
-            cursor: pointer;
-            color: #007bff;
-        }
-
-        .file-item:hover {
-            text-decoration: underline;
-        }
-
-        .table-hover tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .navbar {
-            margin-bottom: 20px;
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        .nav-link {
-            padding: 0.5rem 1rem;
-        }
-
-        .dropdown-item i {
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Cloud Storage</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item" th:if="${not #authentication.isAuthenticated()}">
-                <a class="nav-link" th:href="@{/signup}"><i class="fas fa-user-plus"></i> Sign Up</a>
-            </li>
-            <li class="nav-item" th:if="${not #authentication.isAuthenticated()}">
-                <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> Login</a>
-            </li>
-            <li class="nav-item dropdown" th:if="${#authentication.isAuthenticated()}">
-                <a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-in-alt"></i> Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="header :: header"></div>
 <div class="container mt-5">
     <h2>Cloud Storage</h2>
     <nav aria-label="breadcrumb">
@@ -106,15 +19,15 @@
             <li aria-current="page" class="breadcrumb-item active" th:text="${currentPath}"></li>
         </ol>
     </nav>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <button class="btn btn-success mr-2" data-toggle="modal" data-target="#uploadFileModal">Upload File</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#uploadFolderModal">Upload Folder</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <form action="/search" class="form-inline mb-4" method="get">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label class="sr-only" for="searchTerm">Search Term</label>
-                    <input class="form-control" id="searchTerm" name="searchTerm" placeholder="Search Term" required th:value="${searchTerm}" type="text">
-                </div>
-                <button class="btn btn-primary mb-2" type="submit">Search</button>
-            </form>
+            <div th:replace="search :: search"></div>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -132,28 +45,12 @@
                 </tr>
                 </tbody>
             </table>
-            <div th:if="${searchResults}">
-                <h3>Search Results</h3>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="result : ${searchResults}">
-                        <td class="file-item">
-                            <a th:href="@{'/' + '?path=' + ${result.path() + result.name()}}" th:text="${result.name()}"></a>
-                        </td>
-                        <td th:text="${result.isDir} ? 'Folder' : 'File'"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>
+
+<div th:replace="upload-file-modal :: file-modal"></div>
+<div th:replace="upload-folder-modal :: folder-modal"></div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
