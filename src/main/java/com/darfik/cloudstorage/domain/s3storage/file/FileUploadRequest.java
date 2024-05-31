@@ -15,8 +15,8 @@ public class FileUploadRequest extends FileRequest {
     @NotNull(message = "You can't upload nothing")
     private MultipartFile file;
 
-    public FileUploadRequest(MultipartFile file) {
-        super();
+    public FileUploadRequest(MultipartFile file, String owner) {
+        super(owner);
         this.file = file;
     }
 

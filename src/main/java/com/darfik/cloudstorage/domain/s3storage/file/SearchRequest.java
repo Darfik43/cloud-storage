@@ -7,8 +7,8 @@ public class SearchRequest extends FileRequest {
 
     private final String searchTerm;
 
-    public SearchRequest(String searchTerm) {
-        super();
+    public SearchRequest(String searchTerm, String owner) {
+        super(owner);
         this.searchTerm = searchTerm;
     }
 

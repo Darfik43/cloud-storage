@@ -20,8 +20,8 @@ public class FileRenameRequest extends FileRequest {
     @NotBlank(message = "Can't get the path of the file")
     private String path;
 
-    public FileRenameRequest(String currentName, String newName, String path) {
-        super();
+    public FileRenameRequest(String currentName, String newName, String path, String owner) {
+        super(owner);
         this.currentName = currentName;
         this.newName = newName;
         this.path = path;
