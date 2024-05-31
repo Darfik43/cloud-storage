@@ -28,7 +28,7 @@ public class FolderController {
             @Valid FolderUploadRequest folderUploadRequest) {
         s3FolderService.uploadFolder(folderUploadRequest, owner.getUsername());
 
-        return "";
+        return "home";
     }
 
     @PostMapping("/rename")
@@ -37,7 +37,7 @@ public class FolderController {
             @Valid FolderRenameRequest folderRenameRequest) {
         s3FolderService.renameFolder(folderRenameRequest, owner.getUsername());
 
-        return "";
+        return "home";
     }
 
 }
