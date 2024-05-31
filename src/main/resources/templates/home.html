@@ -3,31 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Cloud Storage</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+            color: #343a40;
+        }
+
+        .breadcrumb {
+            background-color: #e9ecef;
+            border-radius: 0.25rem;
+        }
+
+        .form-inline {
+            border-bottom: 2px solid #343a40;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+
+        .btn {
+            border-radius: 20px;
+        }
+
+        .table {
+            margin-top: 30px;
+        }
+
         .file-item {
             cursor: pointer;
+            color: #007bff;
         }
 
-        .file-icon {
-            font-size: 24px;
-            vertical-align: middle;
+        .file-item:hover {
+            text-decoration: underline;
         }
 
-        .file-name {
-            margin-left: 10px;
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Cloud Storage</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" th:if="${not #authentication.isAuthenticated()}">
+                <a class="nav-link" th:href="@{/signup}"><i class="fas fa-user-plus"></i> Sign Up</a>
+            </li>
+            <li class="nav-item" th:if="${not #authentication.isAuthenticated()}">
+                <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            </li>
+            <li class="nav-item dropdown" th:if="${#authentication.isAuthenticated()}">
+                <a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-in-alt"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container mt-5">
     <h2>Cloud Storage</h2>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-            <li aria-current="page" class="breadcrumb-item active"
-                th:text="${currentPath}"></li>
+            <li aria-current="page" class="breadcrumb-item active" th:text="${currentPath}"></li>
         </ol>
     </nav>
     <div class="row">
@@ -35,12 +111,9 @@
             <form action="/search" class="form-inline mb-4" method="get">
                 <div class="form-group mx-sm-3 mb-2">
                     <label class="sr-only" for="searchTerm">Search Term</label>
-                    <input class="form-control" id="searchTerm" name="searchTerm"
-                           placeholder="Search Term" required
-                           th:value="${searchTerm}" type="text">
+                    <input class="form-control" id="searchTerm" name="searchTerm" placeholder="Search Term" required th:value="${searchTerm}" type="text">
                 </div>
-                <button class="btn btn-primary mb-2" type="submit">Search
-                </button>
+                <button class="btn btn-primary mb-2" type="submit">Search</button>
             </form>
             <table class="table table-hover">
                 <thead>
@@ -50,14 +123,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:classappend="${file.isDir} ? 'table-active' : ''"
-                    th:each="file : ${folderContent}">
+                <tr th:classappend="${file.isDir} ? 'table-active' : ''" th:each="file : ${folderContent}">
                     <td class="file-item">
-                        <span th:if="${not file.isDir()}"
-                              th:text="${file.getName()}"></span>
-                        <a th:href="@{'/' + '?path=' + ${file.getPath() + file.getName()}}"
-                           th:if="${file.isDir()}"
-                           th:text="${file.getName()}"></a>
+                        <span th:if="${not file.isDir()}" th:text="${file.getName()}"></span>
+                        <a th:href="@{'/' + '?path=' + ${file.getPath() + file.getName()}}" th:if="${file.isDir()}" th:text="${file.getName()}"></a>
                     </td>
                     <td th:text="${file.isDir} ? 'Folder' : 'File'"></td>
                 </tr>
@@ -75,8 +144,7 @@
                     <tbody>
                     <tr th:each="result : ${searchResults}">
                         <td class="file-item">
-                            <a th:href="@{'/' + '?path=' + ${result.getPath() + result.getName()}}"
-                               th:text="${result.getName()}"></a>
+                            <a th:href="@{'/' + '?path=' + ${result.getPath() + result.getName()}}" th:text="${result.getName()}"></a>
                         </td>
                         <td th:text="${result.isDir} ? 'Folder' : 'File'"></td>
                     </tr>
@@ -89,5 +157,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </body>
 </html>
