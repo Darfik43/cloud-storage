@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.domain.s3storage.file;
 
-import com.darfik.cloudstorage.domain.s3storage.MinioProperties;
+import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.user.UserServiceImpl;
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import io.minio.*;

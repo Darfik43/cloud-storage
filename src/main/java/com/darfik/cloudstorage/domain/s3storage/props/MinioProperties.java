@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.s3storage;
+package com.darfik.cloudstorage.domain.s3storage.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
