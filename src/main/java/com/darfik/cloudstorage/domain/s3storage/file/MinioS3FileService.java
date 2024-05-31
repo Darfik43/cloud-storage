@@ -2,6 +2,7 @@ package com.darfik.cloudstorage.domain.s3storage.file;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
+import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
 import com.darfik.cloudstorage.domain.user.UserServiceImpl;
 import io.minio.*;
 import io.minio.messages.Item;
@@ -24,8 +25,7 @@ public class MinioS3FileService implements S3FileService {
     @Override
     public void uploadFile(FileUploadRequest fileUploadRequest, String owner) {
         MultipartFile multipartFile = fileUploadRequest.file();
-        String fileName =
-                getUserFolderPrefix(owner) + fileUploadRequest.file().getOriginalFilename();
+        String fileName = getUserFolderPrefix(owner) + fileUploadRequest.file().getOriginalFilename();
 
         putObject(multipartFile, fileName);
     }
@@ -58,13 +58,15 @@ public class MinioS3FileService implements S3FileService {
     }
 
     private void copyObject(FileRenameRequest fileRenameRequest, String owner) {
+        String userFolderPrefix = getUserFolderPrefix(owner);
+
         try {
             minioClient.copyObject(CopyObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
-                    .object(getUserFolderPrefix(owner + fileRenameRequest.newName()))
+                    .object(userFolderPrefix + fileRenameRequest.newName())
                     .source(CopySource.builder()
                             .bucket(minioProperties.getBucket())
-                            .object(getUserFolderPrefix(owner + fileRenameRequest.currentName()))
+                            .object(userFolderPrefix + fileRenameRequest.path() + fileRenameRequest.currentName())
                             .build())
                     .build());
         } catch (Exception e) {
@@ -92,13 +94,11 @@ public class MinioS3FileService implements S3FileService {
         results.forEach(result -> {
             try {
                 Item item = result.get();
-                String name =
-                        item.objectName().substring((getUserFolderPrefix(email) + path).length());
                 FileResponse fileResponse = new FileResponse(
                         email,
                         item.isDir(),
                         path,
-                        name
+                        item.objectName().substring((getUserFolderPrefix(email) + path).length())
                 );
                 files.add(fileResponse);
             } catch (Exception e) {
@@ -109,7 +109,8 @@ public class MinioS3FileService implements S3FileService {
         return files;
     }
 
-    private Iterable<Result<Item>> getListObjects(String email, String path, boolean recursive) {
+    private Iterable<Result<Item>> getListObjects(String email, String path,
+                                                  boolean recursive) {
         return minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(minioProperties.getBucket())
                 .prefix(getUserFolderPrefix(email) + path)
@@ -117,8 +118,8 @@ public class MinioS3FileService implements S3FileService {
                 .build());
     }
 
-    private String getUserFolderPrefix(String email) {
-        return "user-" + userService.getUserIdByEmail(email) + "-files/";
+    private String getUserFolderPrefix(String owner) {
+         return UserFolderResolver.getUserFolderPrefix(userService.getUserIdByEmail(owner));
     }
 
 }
