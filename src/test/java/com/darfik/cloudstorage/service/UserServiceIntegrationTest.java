@@ -4,7 +4,7 @@ package com.darfik.cloudstorage.service;
 import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
 import com.darfik.cloudstorage.domain.user.AppUser;
 import com.darfik.cloudstorage.domain.user.AppUserRepository;
-import com.darfik.cloudstorage.domain.user.RegistrationDto;
+import com.darfik.cloudstorage.domain.user.RegistrationRequest;
 import com.darfik.cloudstorage.domain.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,9 +42,10 @@ public class UserServiceIntegrationTest {
 
     @Test
     void register_shouldSaveUserInDatabase() {
-        var registrationDto = new RegistrationDto();
-        registrationDto.setEmail("user@gmail.com");
-        registrationDto.setPassword("password");
+        var registrationDto = new RegistrationRequest(
+                "user@gmail.com",
+                "password",
+                "password");
 
         userService.registerNewUser(registrationDto);
 
@@ -54,15 +55,16 @@ public class UserServiceIntegrationTest {
         user.ifPresent(u -> {
             assertEquals("Emails don't match", "user@gmail.com", u.getEmail());
             assertNotEquals("Password should be hashed", u.getPassword(),
-                    registrationDto.getPassword());
+                    registrationDto.password());
         });
     }
 
     @Test
     void register_sameUserTwice_shouldThrowException() {
-        var registrationDto = new RegistrationDto();
-        registrationDto.setEmail("user@gmail.com");
-        registrationDto.setPassword("password");
+        var registrationDto = new RegistrationRequest(
+                "user@gmail.com",
+                "password",
+                "password");
 
         userService.registerNewUser(registrationDto);
 

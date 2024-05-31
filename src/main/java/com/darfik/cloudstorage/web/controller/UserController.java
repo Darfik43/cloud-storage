@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.web.controller;
 
 import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
-import com.darfik.cloudstorage.domain.user.RegistrationDto;
+import com.darfik.cloudstorage.domain.user.RegistrationRequest;
 import com.darfik.cloudstorage.domain.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,8 +28,8 @@ public class UserController {
 
     @Operation(summary = "Register a new user")
     @PostMapping
-    public String createUser(@Valid RegistrationDto registrationDto) throws UserAlreadyExistsException {
-        userService.registerNewUser(registrationDto);
+    public String createUser(@Valid RegistrationRequest registrationRequest) throws UserAlreadyExistsException {
+        userService.registerNewUser(registrationRequest);
         return "redirect:/login";
     }
 

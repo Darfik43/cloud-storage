@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.FileDto;
+import com.darfik.cloudstorage.domain.s3storage.file.FileResponse;
 import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,7 +30,7 @@ public class HomeController {
                                @AuthenticationPrincipal User owner,
                                Model model) {
         String currentPath = path != null ? path : "";
-        List<FileDto> folderContent =
+        List<FileResponse> folderContent =
                 s3FileService.getUserFiles(owner.getUsername(), currentPath,
                         false);
 

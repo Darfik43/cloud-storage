@@ -13,14 +13,14 @@ public class SearchServiceImpl implements SearchService {
     private final S3FileService s3FileService;
 
     @Override
-    public List<FileDto> searchFiles(SearchRequest searchRequest, String owner) {
-        List<FileDto> files =
+    public List<FileResponse> searchFiles(SearchRequest searchRequest, String owner) {
+        List<FileResponse> files =
                 s3FileService.getUserFiles(owner, "", true);
         return listBySearchTerm(files, searchRequest.searchTerm());
     }
 
-    private List<FileDto> listBySearchTerm(List<FileDto> files,
-                                           String searchTerm) {
+    private List<FileResponse> listBySearchTerm(List<FileResponse> files,
+                                                String searchTerm) {
         String lowerCaseSearchTerm = searchTerm.toLowerCase();
         return files.stream()
                 .filter(file -> (file.path() + file.name()).toLowerCase().contains(lowerCaseSearchTerm))

@@ -18,16 +18,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerNewUser(RegistrationDto registrationDto) {
-        if (!userExists(registrationDto.getEmail())) {
+    public void registerNewUser(RegistrationRequest registrationRequest) {
+        if (!userExists(registrationRequest.email())) {
             AppUser appUser = new AppUser(
-                    registrationDto.getEmail(),
-                    passwordEncoder.encode(registrationDto.getPassword()),
+                    registrationRequest.email(),
+                    passwordEncoder.encode(registrationRequest.password()),
                     Set.of(Role.ROLE_USER));
 
             appUserRepository.save(appUser);
         } else {
-            throw new UserAlreadyExistsException("User already exists" + registrationDto.getEmail());
+            throw new UserAlreadyExistsException("User already exists" + registrationRequest.email());
         }
     }
 

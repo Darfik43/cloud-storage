@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.web.validation;
 
-import com.darfik.cloudstorage.domain.user.RegistrationDto;
+import com.darfik.cloudstorage.domain.user.RegistrationRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -12,8 +12,8 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        RegistrationDto registrationDto = (RegistrationDto) obj;
-        if (!(registrationDto.getPassword().equals(registrationDto.getMatchingPassword()))) {
+        RegistrationRequest registrationRequest = (RegistrationRequest) obj;
+        if (!(registrationRequest.password().equals(registrationRequest.matchingPassword()))) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
                     .addPropertyNode("matchingPassword").addConstraintViolation();

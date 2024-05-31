@@ -51,7 +51,7 @@ public class MinioS3FileService implements S3FileService {
 
 
     @Override
-    public List<FileDto> getUserFiles(String email, String path, boolean recursive) {
+    public List<FileResponse> getUserFiles(String email, String path, boolean recursive) {
         Iterable<Result<Item>> results = getListObjects(email, path, recursive);
 
         return convertResultToDto(results, email, path);
@@ -86,21 +86,21 @@ public class MinioS3FileService implements S3FileService {
         }
     }
 
-    private List<FileDto> convertResultToDto(Iterable<Result<Item>> results, String email, String path) {
-        List<FileDto> files = new ArrayList<>();
+    private List<FileResponse> convertResultToDto(Iterable<Result<Item>> results, String email, String path) {
+        List<FileResponse> files = new ArrayList<>();
 
         results.forEach(result -> {
             try {
                 Item item = result.get();
                 String name =
                         item.objectName().substring((getUserFolderPrefix(email) + path).length());
-                FileDto fileDto = new FileDto(
+                FileResponse fileResponse = new FileResponse(
                         email,
                         item.isDir(),
                         path,
                         name
                 );
-                files.add(fileDto);
+                files.add(fileResponse);
             } catch (Exception e) {
                 throw new FileOperationException("Can't get a list of your files: " + e.getMessage());
             }

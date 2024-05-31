@@ -10,5 +10,5 @@ public interface S3FileService {
 
     void deleteFile(FileDeleteRequest fileDeleteRequest, String owner);
 
-    List<FileDto> getUserFiles(String owner, String folder, boolean recursive);
+    List<FileResponse> getUserFiles(String owner, String folder, boolean recursive);
 }
