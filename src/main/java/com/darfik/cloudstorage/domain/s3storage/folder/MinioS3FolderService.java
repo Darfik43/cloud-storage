@@ -2,6 +2,7 @@ package com.darfik.cloudstorage.domain.s3storage.folder;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
+import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
 import com.darfik.cloudstorage.domain.user.UserService;
 import io.minio.*;
 import io.minio.messages.Item;
@@ -21,40 +22,20 @@ public class MinioS3FolderService implements S3FolderService {
     private final MinioClient minioClient;
     private final UserService userService;
 
-    private String getUserBucketPrefix(String email) {
-        return "user-" + userService.getUserIdByEmail(email) + "-files/";
-    }
-
     @Override
     public void uploadFolder(FolderUploadRequest folderUploadRequest, String owner) {
         List<MultipartFile> files = folderUploadRequest.files();
-        List<SnowballObject> objects = createSnowballObjects(files,
-                getUserBucketPrefix(owner));
+        List<SnowballObject> objects = createSnowballObjectsFromFiles(files, getUserFolderPrefix(owner));
+
         uploadObjects(objects);
     }
 
     @Override
     public void renameFolder(FolderRenameRequest folderRenameRequest, String owner) {
-        String oldPrefix =
-                getUserBucketPrefix(owner) + folderRenameRequest.currentName() + "/";
-        String newPrefix =
-                getUserBucketPrefix(owner) + folderRenameRequest.newName() + "/";
-        renameFolderObjects(oldPrefix, newPrefix);
-    }
+        String oldPrefix = getUserFolderPrefix(owner) + folderRenameRequest.currentName() + "/";
+        String newPrefix = getUserFolderPrefix(owner) + folderRenameRequest.newName() + "/";
 
-    private List<SnowballObject> createSnowballObjects(List<MultipartFile> files,
-                                                       String userPrefix) {
-        List<SnowballObject> objects = new ArrayList<>();
-        for (MultipartFile file : files) {
-            String fileName = userPrefix + file.getOriginalFilename();
-            try {
-                objects.add(new SnowballObject(fileName,
-                        file.getInputStream(), file.getSize(), null));
-            } catch (Exception e) {
-                throw new FileOperationException("Error uploading folder: " + e.getMessage());
-            }
-        }
-        return objects;
+        renameFolderObjects(oldPrefix, newPrefix);
     }
 
     private void uploadObjects(List<SnowballObject> objects) {
@@ -77,31 +58,45 @@ public class MinioS3FolderService implements S3FolderService {
                             .recursive(true)
                             .build());
 
-            List<SnowballObject> newObjects = new ArrayList<>();
-            for (Result<Item> result : objects) {
-                Item item = result.get();
-                String newObjectName =
-                        newPrefix + item.objectName().substring(oldPrefix.length());
-                newObjects.add(createSnowballObjectFromItem(item,
-                        newObjectName));
-            }
+            List<SnowballObject> newObjects = createSnowballObjectsFromItems(objects, newPrefix);
 
             deleteOldObjects(objects);
             uploadObjects(newObjects);
-
         } catch (Exception e) {
             throw new FileOperationException("Error renaming folder: " + e.getMessage());
         }
     }
 
-    private SnowballObject createSnowballObjectFromItem(Item item,
-                                                        String newObjectName) {
+    private List<SnowballObject> createSnowballObjectsFromFiles(List<MultipartFile> files, String userPrefix) {
+        List<SnowballObject> objects = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            String fileName = userPrefix + file.getOriginalFilename();
+            try {
+                objects.add(new SnowballObject(fileName,
+                        file.getInputStream(), file.getSize(), null));
+            } catch (Exception e) {
+                throw new FileOperationException("Error uploading folder: " + e.getMessage());
+            }
+        }
+        return objects;
+    }
+
+    private List<SnowballObject> createSnowballObjectsFromItems(Iterable<Result<Item>> items, String newPrefix) {
         try {
-            return new SnowballObject(newObjectName,
-                    minioClient.getObject(GetObjectArgs.builder()
-                            .bucket(minioProperties.getBucket())
-                            .object(item.objectName())
-                            .build()), item.size(), ZonedDateTime.now());
+            List<SnowballObject> snowballObjects = new ArrayList<>();
+
+            for (Result<Item> result : items) {
+                Item item = result.get();
+                snowballObjects.add(new SnowballObject(
+                        newPrefix,
+                        minioClient.getObject(GetObjectArgs.builder()
+                                .bucket(minioProperties.getBucket())
+                                .object(item.objectName())
+                                .build()), item.size(), ZonedDateTime.now()));
+            }
+
+            return snowballObjects;
         } catch (Exception e) {
             throw new FileOperationException("Error creating object: " + e.getMessage());
         }
@@ -116,5 +111,10 @@ public class MinioS3FolderService implements S3FolderService {
                     .build());
         }
     }
+
+    private String getUserFolderPrefix(String email) {
+        return UserFolderResolver.getUserFolderPrefix(userService.getUserIdByEmail(email));
+    }
+
 }
 
