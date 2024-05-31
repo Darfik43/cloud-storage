@@ -31,8 +31,7 @@ public class HomeController {
                                Model model) {
         String currentPath = path != null ? path : "";
         List<FileResponse> folderContent =
-                s3FileService.getUserFiles(owner.getUsername(), currentPath,
-                        false);
+                s3FileService.getUserFiles(owner.getUsername(), currentPath, false);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);
