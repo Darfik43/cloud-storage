@@ -1,0 +1,24 @@
+<div class="modal fade" id="uploadFolderModal" tabindex="-1" role="dialog" aria-labelledby="uploadFolderModalLabel" aria-hidden="true" th:fragment="folder-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/folders/upload" method="post" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadFolderModalLabel">Upload Folder</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="folderInput">Select Folder</label>
+            <input type="file" class="form-control-file" id="folderInput" name="folder" webkitdirectory mozdirectory required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
