@@ -1,22 +1,19 @@
 package com.darfik.cloudstorage.domain.s3storage.folder;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class FolderRenameRequest extends FolderRequest {
 
     private String currentName;
     private String newName;
 
-    public FolderRenameRequest(String currentName, String newName,
-                               String owner) {
-        super(owner);
+    public FolderRenameRequest(String currentName, String newName) {
+        super();
         this.currentName = currentName;
         this.newName = newName;
     }
