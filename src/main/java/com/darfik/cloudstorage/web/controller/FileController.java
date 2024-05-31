@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.AppFileService;
+import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import com.darfik.cloudstorage.domain.s3storage.file.FileDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.FileRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.FileUploadRequest;
@@ -22,34 +22,28 @@ import org.springframework.web.servlet.view.RedirectView;
 @Tag(name = "File controller", description = "File interaction API, it doesn't work with folders")
 public class FileController {
 
-    private final AppFileService appFileService;
+    private final S3FileService s3FileService;
 
     @PostMapping("/upload")
     @Operation
-    public RedirectView uploadFile(@AuthenticationPrincipal User user,
-                                   @Valid FileUploadRequest fileUploadRequest) {
-        fileUploadRequest.setOwner(user.getUsername());
-        appFileService.uploadFile(fileUploadRequest);
+    public RedirectView uploadFile(@Valid FileUploadRequest fileUploadRequest) {
+        s3FileService.uploadFile(fileUploadRequest);
 
         return new RedirectView("/");
     }
 
     @PostMapping("/rename")
     @Operation
-    public RedirectView renameFile(@AuthenticationPrincipal User user,
-                                   @Valid FileRenameRequest fileRenameRequest) {
-        fileRenameRequest.setOwner(user.getUsername());
-        appFileService.renameFile(fileRenameRequest);
+    public RedirectView renameFile(@Valid FileRenameRequest fileRenameRequest) {
+        s3FileService.renameFile(fileRenameRequest);
 
         return new RedirectView("/");
     }
 
     @DeleteMapping("/delete")
     @Operation
-    public RedirectView deleteFile(@AuthenticationPrincipal User user,
-                                   @Valid FileDeleteRequest fileDeleteRequest) {
-        fileDeleteRequest.setOwner(user.getUsername());
-        appFileService.deleteFile(fileDeleteRequest);
+    public RedirectView deleteFile(@Valid FileDeleteRequest fileDeleteRequest) {
+        s3FileService.deleteFile(fileDeleteRequest);
 
         return new RedirectView("/");
     }

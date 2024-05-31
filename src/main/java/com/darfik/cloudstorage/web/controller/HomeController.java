@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.AppFileDto;
-import com.darfik.cloudstorage.domain.s3storage.file.AppFileService;
+import com.darfik.cloudstorage.domain.s3storage.file.FileDto;
+import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +21,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final AppFileService appFileService;
+    private final S3FileService s3FileService;
 
     @GetMapping("/")
     @Operation
     public String showHomePage(@RequestParam(required = false) String path,
                            @AuthenticationPrincipal User user, Model model) {
         String currentPath = path != null ? path : "";
-        List<AppFileDto> folderContent =
-                appFileService.getUserFiles(user.getUsername(), currentPath, false);
+        List<FileDto> folderContent =
+                s3FileService.getUserFiles(user.getUsername(), currentPath, false);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);

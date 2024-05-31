@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.folder.AppFolderService;
+import com.darfik.cloudstorage.domain.s3storage.folder.S3FolderService;
 import com.darfik.cloudstorage.domain.s3storage.folder.FolderRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.FolderUploadRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,25 +19,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Tag(name = "Folder controller", description = "Folder interaction API")
 public class FolderController {
 
-    private final AppFolderService appFolderService;
+    private final S3FolderService s3FolderService;
 
     @PostMapping("/upload")
     @Operation
     public String uploadFolder(
-            @AuthenticationPrincipal User user,
             @Valid FolderUploadRequest folderUploadRequest) {
-        folderUploadRequest.setOwner(user.getUsername());
-        appFolderService.uploadFolder(folderUploadRequest);
+        s3FolderService.uploadFolder(folderUploadRequest);
 
         return "";
     }
 
     @PostMapping("/rename")
     @Operation
-    public String renameFolder(@AuthenticationPrincipal User user,
-                               @Valid FolderRenameRequest folderRenameRequest) {
-        folderRenameRequest.setOwner(user.getUsername());
-        appFolderService.renameFolder(folderRenameRequest);
+    public String renameFolder(@Valid FolderRenameRequest folderRenameRequest) {
+        s3FolderService.renameFolder(folderRenameRequest);
 
         return "";
     }
