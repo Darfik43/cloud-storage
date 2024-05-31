@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class AppFileDto {
+public class FileDto {
 
     private String owner;
     private boolean isDir;

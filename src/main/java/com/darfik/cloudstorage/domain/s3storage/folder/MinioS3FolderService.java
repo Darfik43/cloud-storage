@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AppFolderServiceImpl implements AppFolderService {
+public class MinioS3FolderService implements S3FolderService {
 
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;

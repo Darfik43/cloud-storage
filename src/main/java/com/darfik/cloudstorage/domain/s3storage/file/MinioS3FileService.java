@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AppFileServiceImpl implements AppFileService {
+public class MinioS3FileService implements S3FileService {
 
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
@@ -63,7 +63,7 @@ public class AppFileServiceImpl implements AppFileService {
     }
 
     @Override
-    public List<AppFileDto> getUserFiles(String email, String folder, boolean recursive) {
+    public List<FileDto> getUserFiles(String email, String folder, boolean recursive) {
         Iterable<Result<Item>> results =
                 minioClient.listObjects(ListObjectsArgs.builder()
                         .bucket(minioProperties.getBucket())
@@ -71,20 +71,20 @@ public class AppFileServiceImpl implements AppFileService {
                         .recursive(recursive)
                         .build());
 
-        List<AppFileDto> files = new ArrayList<>();
+        List<FileDto> files = new ArrayList<>();
 
         results.forEach(result -> {
             try {
                 Item item = result.get();
-                String path = getPath(item.objectName(), email);
-                String name = getFileName(item.objectName(), email);
-                AppFileDto appFileDto = new AppFileDto(
+                String path = folder;
+                String name = item.objectName().substring((getUserFolderPrefix(email) + folder).length());
+                FileDto fileDto = new FileDto(
                         email,
                         item.isDir(),
                         path,
                         name
                 );
-                files.add(appFileDto);
+                files.add(fileDto);
             } catch (Exception e) {
                 throw new FileOperationException("Files get failed" + e.getMessage());
             }

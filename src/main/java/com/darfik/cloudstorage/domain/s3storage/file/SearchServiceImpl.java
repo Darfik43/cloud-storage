@@ -10,17 +10,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
-    private final AppFileService appFileService;
+    private final S3FileService s3FileService;
 
     @Override
-    public List<AppFileDto> searchFiles(SearchRequest searchRequest) {
-        List<AppFileDto> files =
-                appFileService.getUserFiles(searchRequest.getOwner(), "", true);
+    public List<FileDto> searchFiles(SearchRequest searchRequest) {
+        List<FileDto> files =
+                s3FileService.getUserFiles(searchRequest.getOwner(), "", true);
         return listBySearchTerm(files, searchRequest.getSearchTerm());
     }
 
-    private List<AppFileDto> listBySearchTerm(List<AppFileDto> files,
-                                              String searchTerm) {
+    private List<FileDto> listBySearchTerm(List<FileDto> files,
+                                           String searchTerm) {
         String lowerCaseSearchTerm = searchTerm.toLowerCase();
         return files.stream()
                 .filter(file -> (file.getPath() + file.getName()).toLowerCase().contains(lowerCaseSearchTerm))

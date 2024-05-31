@@ -2,7 +2,7 @@ package com.darfik.cloudstorage.domain.s3storage.file;
 
 import java.util.List;
 
-public interface AppFileService {
+public interface S3FileService {
 
     void uploadFile(FileUploadRequest fileUploadRequest);
 
@@ -10,5 +10,5 @@ public interface AppFileService {
 
     void deleteFile(FileDeleteRequest fileDeleteRequest);
 
-    List<AppFileDto> getUserFiles(String email, String folder, boolean recursive);
+    List<FileDto> getUserFiles(String email, String folder, boolean recursive);
 }

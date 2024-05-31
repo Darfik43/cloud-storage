@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<AppFileDto> searchFiles(SearchRequest searchRequest);
+    List<FileDto> searchFiles(SearchRequest searchRequest);
 
 }
