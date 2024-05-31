@@ -6,5 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 public record FileDeleteRequest(
-        @NotNull(message = "Failed while getting file path") String path) {
+
+        @NotNull(message = "Failed while getting file path")
+        String path
+
+) {
 }

@@ -7,5 +7,9 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 public record FileUploadRequest(
-        @NotNull(message = "You can't upload nothing") MultipartFile file) {
+
+        @NotNull(message = "You can't upload nothing")
+        MultipartFile file
+
+) {
 }
