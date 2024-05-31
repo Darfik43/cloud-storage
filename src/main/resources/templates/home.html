@@ -125,8 +125,8 @@
                 <tbody>
                 <tr th:classappend="${file.isDir} ? 'table-active' : ''" th:each="file : ${folderContent}">
                     <td class="file-item">
-                        <span th:if="${not file.isDir()}" th:text="${file.getName()}"></span>
-                        <a th:href="@{'/' + '?path=' + ${file.getPath() + file.getName()}}" th:if="${file.isDir()}" th:text="${file.getName()}"></a>
+                        <span th:if="${not file.isDir()}" th:text="${file.name()}"></span>
+                        <a th:href="@{'/' + '?path=' + ${file.path() + file.name()}}" th:if="${file.isDir()}" th:text="${file.name()}"></a>
                     </td>
                     <td th:text="${file.isDir} ? 'Folder' : 'File'"></td>
                 </tr>
@@ -144,7 +144,7 @@
                     <tbody>
                     <tr th:each="result : ${searchResults}">
                         <td class="file-item">
-                            <a th:href="@{'/' + '?path=' + ${result.getPath() + result.getName()}}" th:text="${result.getName()}"></a>
+                            <a th:href="@{'/' + '?path=' + ${result.path() + result.name()}}" th:text="${result.name()}"></a>
                         </td>
                         <td th:text="${result.isDir} ? 'Folder' : 'File'"></td>
                     </tr>
