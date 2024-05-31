@@ -7,7 +7,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,25 +20,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Tag(name = "Folder controller", description = "Folder interaction API")
 public class FolderController {
 
-    private final String owner =
-            SecurityContextHolder.getContext().getAuthentication().getName();
     private final S3FolderService s3FolderService;
 
     @PostMapping("/upload")
     @Operation
-    public String uploadFolder(
+    public String uploadFolder(@AuthenticationPrincipal User owner,
             @Valid FolderUploadRequest folderUploadRequest) {
-        folderUploadRequest.setOwner(owner);
-        s3FolderService.uploadFolder(folderUploadRequest);
+        s3FolderService.uploadFolder(folderUploadRequest, owner.getUsername());
 
         return "";
     }
 
     @PostMapping("/rename")
     @Operation
-    public String renameFolder(@Valid FolderRenameRequest folderRenameRequest) {
-        folderRenameRequest.setOwner(owner);
-        s3FolderService.renameFolder(folderRenameRequest);
+    public String renameFolder(@AuthenticationPrincipal User owner,
+            @Valid FolderRenameRequest folderRenameRequest) {
+        s3FolderService.renameFolder(folderRenameRequest, owner.getUsername());
 
         return "";
     }

@@ -27,11 +27,11 @@ public class HomeController {
     @GetMapping("/")
     @Operation
     public String showHomePage(@RequestParam(required = false) String path,
-                               @AuthenticationPrincipal User user,
+                               @AuthenticationPrincipal User owner,
                                Model model) {
         String currentPath = path != null ? path : "";
         List<FileDto> folderContent =
-                s3FileService.getUserFiles(user.getUsername(), currentPath,
+                s3FileService.getUserFiles(owner.getUsername(), currentPath,
                         false);
 
         model.addAttribute("folderContent", folderContent);

@@ -26,19 +26,19 @@ public class MinioS3FolderService implements S3FolderService {
     }
 
     @Override
-    public void uploadFolder(FolderUploadRequest folderUploadRequest) {
-        List<MultipartFile> files = folderUploadRequest.getFiles();
+    public void uploadFolder(FolderUploadRequest folderUploadRequest, String owner) {
+        List<MultipartFile> files = folderUploadRequest.files();
         List<SnowballObject> objects = createSnowballObjects(files,
-                getUserBucketPrefix(folderUploadRequest.getOwner()));
+                getUserBucketPrefix(owner));
         uploadObjects(objects);
     }
 
     @Override
-    public void renameFolder(FolderRenameRequest folderRenameRequest) {
+    public void renameFolder(FolderRenameRequest folderRenameRequest, String owner) {
         String oldPrefix =
-                getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getCurrentName() + "/";
+                getUserBucketPrefix(owner) + folderRenameRequest.currentName() + "/";
         String newPrefix =
-                getUserBucketPrefix(folderRenameRequest.getOwner()) + folderRenameRequest.getNewName() + "/";
+                getUserBucketPrefix(owner) + folderRenameRequest.newName() + "/";
         renameFolderObjects(oldPrefix, newPrefix);
     }
 

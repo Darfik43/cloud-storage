@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,32 +25,27 @@ import org.springframework.web.servlet.view.RedirectView;
 public class FileController {
 
     private final S3FileService s3FileService;
-    private final String owner =
-            SecurityContextHolder.getContext().getAuthentication().getName();
 
     @PostMapping("/upload")
     @Operation
-    public RedirectView uploadFile(@Valid FileUploadRequest fileUploadRequest) {
-        fileUploadRequest.setOwner(owner);
-        s3FileService.uploadFile(fileUploadRequest);
+    public RedirectView uploadFile(@AuthenticationPrincipal User owner, @Valid FileUploadRequest fileUploadRequest) {
+        s3FileService.uploadFile(fileUploadRequest, owner.getUsername());
 
         return new RedirectView("/");
     }
 
     @PostMapping("/rename")
     @Operation
-    public RedirectView renameFile(@Valid FileRenameRequest fileRenameRequest) {
-        fileRenameRequest.setOwner(owner);
-        s3FileService.renameFile(fileRenameRequest);
+    public RedirectView renameFile(@AuthenticationPrincipal User owner, @Valid FileRenameRequest fileRenameRequest) {
+        s3FileService.renameFile(fileRenameRequest, owner.getUsername());
 
         return new RedirectView("/");
     }
 
     @DeleteMapping("/delete")
     @Operation
-    public RedirectView deleteFile(@Valid FileDeleteRequest fileDeleteRequest) {
-        fileDeleteRequest.setOwner(owner);
-        s3FileService.deleteFile(fileDeleteRequest);
+    public RedirectView deleteFile(@AuthenticationPrincipal User owner, @Valid FileDeleteRequest fileDeleteRequest) {
+        s3FileService.deleteFile(fileDeleteRequest, owner.getUsername());
 
         return new RedirectView("/");
     }

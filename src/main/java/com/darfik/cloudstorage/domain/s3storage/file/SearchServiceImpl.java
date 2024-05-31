@@ -13,10 +13,10 @@ public class SearchServiceImpl implements SearchService {
     private final S3FileService s3FileService;
 
     @Override
-    public List<FileDto> searchFiles(SearchRequest searchRequest) {
+    public List<FileDto> searchFiles(SearchRequest searchRequest, String owner) {
         List<FileDto> files =
-                s3FileService.getUserFiles(searchRequest.getOwner(), "", true);
-        return listBySearchTerm(files, searchRequest.getSearchTerm());
+                s3FileService.getUserFiles(owner, "", true);
+        return listBySearchTerm(files, searchRequest.searchTerm());
     }
 
     private List<FileDto> listBySearchTerm(List<FileDto> files,

@@ -22,11 +22,11 @@ public class MinioS3FileService implements S3FileService {
     private final UserServiceImpl userService;
 
     @Override
-    public void uploadFile(FileUploadRequest fileUploadRequest) {
-        MultipartFile multipartFile = fileUploadRequest.getFile();
+    public void uploadFile(FileUploadRequest fileUploadRequest, String owner) {
+        MultipartFile multipartFile = fileUploadRequest.file();
 
         String fileName =
-                getUserFolderPrefix(fileUploadRequest.getOwner()) + fileUploadRequest.getFile().getOriginalFilename();
+                getUserFolderPrefix(owner) + fileUploadRequest.file().getOriginalFilename();
         InputStream inputStream;
         try {
             inputStream = multipartFile.getInputStream();
@@ -41,25 +41,23 @@ public class MinioS3FileService implements S3FileService {
     }
 
     @Override
-    public void renameFile(FileRenameRequest fileRenameRequest) {
+    public void renameFile(FileRenameRequest fileRenameRequest, String owner) {
         try {
             minioClient.copyObject(CopyObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
-                    .object(getUserFolderPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getNewName())
+                    .object(getUserFolderPrefix(owner + fileRenameRequest.newName()))
                     .source(CopySource.builder()
                             .bucket(minioProperties.getBucket())
-                            .object(getUserFolderPrefix(fileRenameRequest.getOwner()) + fileRenameRequest.getCurrentName())
+                            .object(getUserFolderPrefix(owner + fileRenameRequest.currentName()))
                             .build())
                     .build());
         } catch (Exception e) {
             throw new FileOperationException("File rename failed" + e.getMessage());
         }
 
-        FileDeleteRequest fileDeleteRequest = new FileDeleteRequest();
-        fileDeleteRequest.setPath(fileRenameRequest.getPath());
-        fileDeleteRequest.setOwner(fileRenameRequest.getOwner());
+        FileDeleteRequest fileDeleteRequest = new FileDeleteRequest(fileRenameRequest.path());
 
-        deleteFile(fileDeleteRequest);
+        deleteFile(fileDeleteRequest, owner);
     }
 
     @Override
@@ -95,11 +93,12 @@ public class MinioS3FileService implements S3FileService {
         return files;
     }
 
-    public void deleteFile(FileDeleteRequest fileDeleteRequest) {
+    @Override
+    public void deleteFile(FileDeleteRequest fileDeleteRequest, String owner) {
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
                     .bucket(minioProperties.getBucket())
-                    .object(getUserFolderPrefix(fileDeleteRequest.getOwner()) + fileDeleteRequest.getPath())
+                    .object(getUserFolderPrefix(owner) + fileDeleteRequest.path())
                     .build());
         } catch (Exception e) {
             throw new FileOperationException("File delete failed" + e.getMessage());
