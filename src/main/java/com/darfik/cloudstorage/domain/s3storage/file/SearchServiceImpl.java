@@ -23,7 +23,7 @@ public class SearchServiceImpl implements SearchService {
                                            String searchTerm) {
         String lowerCaseSearchTerm = searchTerm.toLowerCase();
         return files.stream()
-                .filter(file -> (file.getPath() + file.getName()).toLowerCase().contains(lowerCaseSearchTerm))
+                .filter(file -> (file.path() + file.name()).toLowerCase().contains(lowerCaseSearchTerm))
                 .collect(Collectors.toList());
     }
 }
