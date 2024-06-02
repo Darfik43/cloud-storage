@@ -32,8 +32,8 @@ public class MinioS3FolderService implements S3FolderService {
 
     @Override
     public void renameFolder(FolderRenameRequest folderRenameRequest, String owner) {
-        String oldPrefix = getUserFolderPrefix(owner) + folderRenameRequest.currentName() + "/";
-        String newPrefix = getUserFolderPrefix(owner) + folderRenameRequest.newName() + "/";
+        String oldPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() + folderRenameRequest.currentName() + "/";
+        String newPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() +  folderRenameRequest.newName() + "/";
 
         renameFolderObjects(oldPrefix, newPrefix);
     }
@@ -58,10 +58,10 @@ public class MinioS3FolderService implements S3FolderService {
                             .recursive(true)
                             .build());
 
-            List<SnowballObject> newObjects = createSnowballObjectsFromItems(objects, newPrefix);
+            List<SnowballObject> newObjects = createSnowballObjectsFromItems(objects, newPrefix, oldPrefix);
 
-            deleteOldObjects(objects);
             uploadObjects(newObjects);
+            deleteOldObjects(objects);
         } catch (Exception e) {
             throw new FileOperationException("Error renaming files: " + e.getMessage());
         }
@@ -82,18 +82,20 @@ public class MinioS3FolderService implements S3FolderService {
         return objects;
     }
 
-    private List<SnowballObject> createSnowballObjectsFromItems(Iterable<Result<Item>> items, String newPrefix) {
+    private List<SnowballObject> createSnowballObjectsFromItems(Iterable<Result<Item>> items, String newPrefix, String oldPrefix) {
         try {
             List<SnowballObject> snowballObjects = new ArrayList<>();
 
             for (Result<Item> result : items) {
                 Item item = result.get();
                 snowballObjects.add(new SnowballObject(
-                        newPrefix,
+                        newPrefix + item.objectName().substring(oldPrefix.length()),
                         minioClient.getObject(GetObjectArgs.builder()
                                 .bucket(minioProperties.getBucket())
                                 .object(item.objectName())
-                                .build()), item.size(), ZonedDateTime.now()));
+                                .build()),
+                        item.size(),
+                        ZonedDateTime.now()));
             }
 
             return snowballObjects;
