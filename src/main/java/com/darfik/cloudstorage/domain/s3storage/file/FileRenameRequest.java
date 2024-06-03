@@ -10,7 +10,6 @@ public record FileRenameRequest(
         @NotBlank(message = "New name can't be blank")
         String newName,
 
-        @NotBlank(message = "Can't get the path of the file")
         String path
 
 ) {
