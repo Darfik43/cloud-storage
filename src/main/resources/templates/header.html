@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
     <a class="navbar-brand" href="#">Cloud Storage</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -16,6 +17,9 @@
                     Login</a>
             </li>
             <li class="nav-item dropdown" th:if="${#authentication.isAuthenticated()}">
+                <div>
+                    <span th:text="${#authentication.getName()}"></span>
+                </div>
                 <a class="nav-link" th:href="@{/logout}"><i class="fas fa-sign-in-alt"></i>
                     Logout</a>
             </li>
