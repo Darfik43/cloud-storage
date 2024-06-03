@@ -39,17 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div th:if="${errors}">
-                    <ul>
-                        <li class="text-danger"
-                            th:each="error : ${errors.values()}"
-                            th:text="${error}"></li>
-                    </ul>
-                </div>
-                <div th:if="${errorMessage}">
-                    <h4>Error:</h4>
-                    <p th:text="${errorMessage}"></p>
-                </div>
+                <div class="alert alert-warning" th:if="${param.error}">Invalid username or/and password</div>
                 <div class="d-flex justify-content-center align-items-center flex-wrap">
                     <button class="btn btn-primary w-100" type="submit">Login
                     </button>

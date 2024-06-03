@@ -18,6 +18,4 @@ public class LoginController {
         return "login";
     }
 
-    //TODO add exceptions
-
 }

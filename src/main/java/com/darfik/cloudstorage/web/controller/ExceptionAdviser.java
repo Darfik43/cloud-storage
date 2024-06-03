@@ -43,7 +43,7 @@ public class ExceptionAdviser {
     public String handleFileUploadException(FileOperationException exception,
                                             Model model) {
         model.addAttribute("errorMessage", exception.getMessage());
-        return ""; //TODO
+        return "home";
     }
 
 }
