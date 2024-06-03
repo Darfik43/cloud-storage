@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +29,9 @@ public class UserController {
 
     @Operation(summary = "Register a new user")
     @PostMapping
-    public String createUser(@Valid RegistrationRequest registrationRequest) throws UserAlreadyExistsException {
+    public RedirectView createUser(@Valid RegistrationRequest registrationRequest) throws UserAlreadyExistsException {
         userService.registerNewUser(registrationRequest);
-        return "redirect:/login";
+        return new RedirectView("/login");
     }
 
 }

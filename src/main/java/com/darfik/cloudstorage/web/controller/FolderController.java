@@ -25,11 +25,11 @@ public class FolderController {
 
     @PostMapping("/upload")
     @Operation
-    public String uploadFolder(@AuthenticationPrincipal User owner,
+    public RedirectView uploadFolder(@AuthenticationPrincipal User owner,
             @Valid FolderUploadRequest folderUploadRequest) {
         s3FolderService.uploadFolder(folderUploadRequest, owner.getUsername());
 
-        return "home";
+        return new RedirectView("/");
     }
 
     @PutMapping
