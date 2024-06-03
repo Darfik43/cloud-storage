@@ -11,7 +11,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,13 +32,13 @@ public class FolderController {
         return "home";
     }
 
-    @PostMapping("/rename")
+    @PutMapping
     @Operation
-    public String renameFolder(@AuthenticationPrincipal User owner,
-            @Valid FolderRenameRequest folderRenameRequest) {
+    public RedirectView renameFolder(@AuthenticationPrincipal User owner,
+                                     @Valid FolderRenameRequest folderRenameRequest) {
         s3FolderService.renameFolder(folderRenameRequest, owner.getUsername());
 
-        return "home";
+        return new RedirectView("/");
     }
 
 }

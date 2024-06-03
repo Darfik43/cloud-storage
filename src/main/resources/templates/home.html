@@ -6,7 +6,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/static/styles.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="header :: header"></div>
@@ -45,6 +44,12 @@
                     <td th:if="${not file.isDir()}">
                         <button class="btn btn-danger" data-toggle="modal" th:data-target="'#deleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Delete</button>
                         <div th:replace="file-delete-modal :: delete-modal"></div>
+                        <button class="btn btn-primary" data-toggle="modal" th:data-target="'#fileRenameModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Rename</button>
+                        <div th:replace="file-rename-modal :: file-rename-modal"></div>
+                    </td>
+                    <td th:if="${file.isDir()}">
+                        <button class="btn btn-primary" data-toggle="modal" th:data-target="'#folderRenameModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Rename</button>
+                        <div th:replace="folder-rename-modal :: folder-rename-modal"></div>
                     </td>
                 </tr>
                 </tbody>

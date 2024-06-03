@@ -32,7 +32,7 @@ public class MinioS3FolderService implements S3FolderService {
 
     @Override
     public void renameFolder(FolderRenameRequest folderRenameRequest, String owner) {
-        String oldPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() + folderRenameRequest.currentName() + "/";
+        String oldPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() + folderRenameRequest.currentName();
         String newPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() +  folderRenameRequest.newName() + "/";
 
         renameFolderObjects(oldPrefix, newPrefix);

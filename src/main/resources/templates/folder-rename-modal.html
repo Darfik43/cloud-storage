@@ -1,0 +1,30 @@
+<div aria-hidden="true" class="modal fade" tabindex="-1"
+     th:fragment="folder-rename-modal"
+     th:id="'folderRenameModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="folderRenameModalLabel">Rename</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/folders}" th:method="put" th:object="${folderRenameRequest}">
+                    <label for="newName">New name</label>
+                    <div class="input-group">
+                        <input class="form-control" id="newName"
+                               name="newName" placeholder="new-name"
+                               required
+                               type="text"></div>
+                    <input th:name="currentName" th:value="${file.name()}" type="hidden">
+                    <input th:name="path" th:value="${file.path()}" type="hidden">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button class="btn btn-danger" type="submit">Rename</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

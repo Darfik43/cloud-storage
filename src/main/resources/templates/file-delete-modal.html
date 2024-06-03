@@ -11,7 +11,7 @@
                 Are you sure you want to delete <strong th:text="${file.name()}"></strong>?
             </div>
             <div class="modal-footer">
-                <form th:action="@{/files/delete}" th:method="delete" th:object="${fileDeleteRequest}">
+                <form th:action="@{/files}" th:method="delete" th:object="${fileDeleteRequest}">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <input th:name="name" th:value="${file.name()}" type="hidden">
                     <input th:name="path" th:value="${file.path()}" type="hidden">

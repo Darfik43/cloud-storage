@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -34,7 +35,7 @@ public class FileController {
         return new RedirectView("/");
     }
 
-    @PostMapping("/rename")
+    @PutMapping
     @Operation
     public RedirectView renameFile(@AuthenticationPrincipal User owner, @Valid FileRenameRequest fileRenameRequest) {
         s3FileService.renameFile(fileRenameRequest, owner.getUsername());
@@ -42,7 +43,7 @@ public class FileController {
         return new RedirectView("/");
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping
     @Operation
     public RedirectView deleteFile(@AuthenticationPrincipal User owner, @Valid FileDeleteRequest fileDeleteRequest) {
         s3FileService.deleteFile(fileDeleteRequest, owner.getUsername());
