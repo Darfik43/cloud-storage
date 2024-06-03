@@ -9,7 +9,7 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<div class="container mt-5" th:if="${#authentication.isAuthenticated()}">
+<div class="container mt-5" th:if="${isAuthenticated}">
     <h2>Cloud Storage</h2>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
