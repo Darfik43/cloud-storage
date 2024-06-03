@@ -25,7 +25,7 @@ public class FolderController {
 
     private final S3FolderService s3FolderService;
 
-    @PostMapping("/upload")
+    @PostMapping
     @Operation
     public RedirectView uploadFolder(@AuthenticationPrincipal User owner,
             @Valid FolderUploadRequest folderUploadRequest) {
