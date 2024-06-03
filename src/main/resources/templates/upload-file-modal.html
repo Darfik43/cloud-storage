@@ -1,21 +1,26 @@
-<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLabel" aria-hidden="true" th:fragment="file-modal">
+<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog"
+     aria-labelledby="uploadFileModalLabel" aria-hidden="true" th:fragment="file-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="/files/upload" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="uploadFileModalLabel">Upload File</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="fileInput">Select File</label>
-                        <input type="file" class="form-control-file" id="fileInput" name="file" required>
+                    <div class="drop-zone">
+                        <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                        <input type="file" id="fileInput" name="file" class="drop-zone__input"
+                               required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
                     <button type="submit" class="btn btn-primary">Upload</button>
                 </div>
             </form>

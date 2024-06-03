@@ -4,9 +4,58 @@
     <meta charset="UTF-8">
     <title>Cloud Storage</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="/static/styles.css" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    .drop-zone {
+        max-width: 200px;
+        height: 200px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: "Quicksand", sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        cursor: pointer;
+        color: #cccccc;
+        border: 4px dashed #009578;
+        border-radius: 10px;
+    }
+
+    .drop-zone--over {
+        border-style: solid;
+    }
+
+    .drop-zone__input {
+        display: none;
+    }
+
+    .drop-zone__thumb {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #cccccc;
+        background-size: cover;
+        position: relative;
+    }
+
+    .drop-zone__thumb::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 5px 0;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.75);
+        font-size: 14px;
+        text-align: center;
+    }
+</style>
 <body>
 <div th:replace="header :: header"></div>
 <div class="container mt-5" th:if="${isAuthenticated}">
@@ -66,6 +115,7 @@
 
 <div th:replace="upload-file-modal :: file-modal"></div>
 <div th:replace="upload-folder-modal :: folder-modal"></div>
+<script th:src="@{/drop-zone.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
