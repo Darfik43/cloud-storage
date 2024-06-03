@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,16 +27,16 @@ public class HomeController {
 
     @GetMapping("/")
     @Operation
-    public String showHomePage(@RequestParam(required = false) String path,
-                               @AuthenticationPrincipal User owner,
-                               Model model) {
+    public ModelAndView showHomePage(@RequestParam(required = false) String path,
+                                     @AuthenticationPrincipal User owner,
+                                     Model model) {
         String currentPath = path != null ? path : "";
         List<FileResponse> folderContent =
                 s3FileService.getUserFiles(owner.getUsername(), currentPath, false);
 
         model.addAttribute("folderContent", folderContent);
         model.addAttribute("currentPath", currentPath);
-        return "home";
+        return new ModelAndView("home");
     }
 
 }
