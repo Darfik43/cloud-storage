@@ -10,7 +10,6 @@ public record FolderRenameRequest(
         @NotBlank(message = "New name can't be blank")
         String newName,
 
-        @NotBlank(message = "Path can't be blank")
         String path
 
 ) {
