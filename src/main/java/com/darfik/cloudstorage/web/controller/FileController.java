@@ -42,7 +42,7 @@ public class FileController {
         return new RedirectView("/");
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     @Operation
     public RedirectView deleteFile(@AuthenticationPrincipal User owner, @Valid FileDeleteRequest fileDeleteRequest) {
         s3FileService.deleteFile(fileDeleteRequest, owner.getUsername());
