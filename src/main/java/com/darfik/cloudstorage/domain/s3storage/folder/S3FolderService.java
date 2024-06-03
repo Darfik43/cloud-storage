@@ -6,4 +6,6 @@ public interface S3FolderService {
 
     void renameFolder(FolderRenameRequest folderRenameRequest, String owner);
 
+    void deleteFolder(FolderDeleteRequest folderDeleteRequest, String owner);
+
 }

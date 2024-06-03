@@ -30,13 +30,15 @@ public class HomeController {
     public ModelAndView showHomePage(@RequestParam(required = false) String path,
                                      @AuthenticationPrincipal User owner,
                                      Model model) {
-        String currentPath = path != null ? path : "";
-        List<FileResponse> folderContent =
-                s3FileService.getUserFiles(owner.getUsername(), currentPath, false);
+        if (owner != null) {
+            String currentPath = path != null ? path : "";
+            List<FileResponse> folderContent =
+                    s3FileService.getUserFiles(owner.getUsername(), currentPath, false);
 
-        model.addAttribute("folderContent", folderContent);
-        model.addAttribute("currentPath", currentPath);
+            model.addAttribute("folderContent", folderContent);
+            model.addAttribute("currentPath", currentPath);
+        }
+
         return new ModelAndView("home");
     }
-
 }

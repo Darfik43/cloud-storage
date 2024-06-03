@@ -1,11 +1,15 @@
 package com.darfik.cloudstorage.domain.s3storage.folder;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
+import com.darfik.cloudstorage.domain.s3storage.file.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.MinioS3FileService;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
 import com.darfik.cloudstorage.domain.user.UserService;
 import io.minio.*;
+import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
+import io.minio.messages.DeleteError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +25,7 @@ public class MinioS3FolderService implements S3FolderService {
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;
     private final UserService userService;
+    private final MinioS3FileService minioS3FileService;
 
     @Override
     public void uploadFolder(FolderUploadRequest folderUploadRequest, String owner) {
@@ -36,6 +41,37 @@ public class MinioS3FolderService implements S3FolderService {
         String newPrefix = getUserFolderPrefix(owner) + folderRenameRequest.path() +  folderRenameRequest.newName() + "/";
 
         renameFolderObjects(oldPrefix, newPrefix);
+    }
+
+    @Override
+    public void deleteFolder(FolderDeleteRequest folderDeleteRequest, String owner) {
+        List<FileResponse> files = minioS3FileService.getUserFiles(owner, folderDeleteRequest.path() + folderDeleteRequest.name(), true);
+
+        List<DeleteObject> objects = convertToDeleteObjects(files, owner);
+
+        Iterable<Result<DeleteError>> results = minioClient.removeObjects(RemoveObjectsArgs.builder()
+                .bucket(minioProperties.getBucket())
+                .objects(objects)
+                .build());
+
+        results.forEach(deleteErrorResult -> {
+            try {
+                deleteErrorResult.get();
+            }
+            catch (Exception e) {
+                throw new FileOperationException("There is an error while deleting the folder, try again later");
+            }
+        });
+    }
+
+    private List<DeleteObject> convertToDeleteObjects(List<FileResponse> files, String owner) {
+        List<DeleteObject> objects = new ArrayList<>();
+
+        for (FileResponse file : files) {
+            objects.add(new DeleteObject(getUserFolderPrefix(owner) + file.path() + file.name()));
+        }
+
+        return objects;
     }
 
     private void uploadObjects(List<SnowballObject> objects) {

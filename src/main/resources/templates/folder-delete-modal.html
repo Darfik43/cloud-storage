@@ -1,7 +1,7 @@
 <div class="modal fade"
-     th:id="'fileDeleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}"
+     th:id="'folderDeleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}"
      tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true"
-     th:fragment="file-delete-modal">
+     th:fragment="folder-delete-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,8 +14,8 @@
                 Are you sure you want to delete <strong th:text="${file.name()}"></strong>?
             </div>
             <div class="modal-footer">
-                <form th:action="@{/files}" th:method="delete"
-                      th:object="${fileDeleteRequest}">
+                <form th:action="@{/folders}" th:method="delete"
+                      th:object="${folderDeleteRequest}">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Cancel
                     </button>

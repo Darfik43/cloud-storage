@@ -1,5 +1,6 @@
 package com.darfik.cloudstorage.web.controller;
 
+import com.darfik.cloudstorage.domain.s3storage.folder.FolderDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.FolderRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.FolderUploadRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.S3FolderService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +39,15 @@ public class FolderController {
     public RedirectView renameFolder(@AuthenticationPrincipal User owner,
                                      @Valid FolderRenameRequest folderRenameRequest) {
         s3FolderService.renameFolder(folderRenameRequest, owner.getUsername());
+
+        return new RedirectView("/");
+    }
+
+    @DeleteMapping
+    @Operation
+    public RedirectView deleteFolder(@AuthenticationPrincipal User owner,
+                                     @Valid FolderDeleteRequest folderDeleteRequest) {
+        s3FolderService.deleteFolder(folderDeleteRequest, owner.getUsername());
 
         return new RedirectView("/");
     }

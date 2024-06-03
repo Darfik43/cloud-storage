@@ -46,14 +46,16 @@
                     </td>
                     <td th:text="${file.isDir()} ? 'Folder' : 'File'"></td>
                     <td th:if="${not file.isDir()}">
-                        <button class="btn btn-danger" data-toggle="modal" th:data-target="'#deleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Delete</button>
-                        <div th:replace="file-delete-modal :: delete-modal"></div>
                         <button class="btn btn-primary" data-toggle="modal" th:data-target="'#fileRenameModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Rename</button>
                         <div th:replace="file-rename-modal :: file-rename-modal"></div>
+                        <button class="btn btn-danger" data-toggle="modal" th:data-target="'#fileDeleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Delete</button>
+                        <div th:replace="file-delete-modal :: file-delete-modal"></div>
                     </td>
                     <td th:if="${file.isDir()}">
                         <button class="btn btn-primary" data-toggle="modal" th:data-target="'#folderRenameModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Rename</button>
                         <div th:replace="folder-rename-modal :: folder-rename-modal"></div>
+                        <button class="btn btn-danger" data-toggle="modal" th:data-target="'#folderDeleteModal-' + ${#strings.replace(#strings.replace(#strings.replace(file.name(), ' ', '-'), '.', '-'), '/', '-')}">Delete</button>
+                        <div th:replace="folder-delete-modal :: folder-delete-modal"></div>
                     </td>
                 </tr>
                 </tbody>
