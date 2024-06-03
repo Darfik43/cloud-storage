@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 public record SearchRequest(
 
         @NotBlank(message = "Search request can't be null")
-        String searchTerm
+        String query
 
 ) {
 }

@@ -16,7 +16,7 @@ public class SearchServiceImpl implements SearchService {
     public List<FileResponse> searchFiles(SearchRequest searchRequest, String owner) {
         List<FileResponse> files =
                 s3FileService.getUserFiles(owner, "", true);
-        return listBySearchTerm(files, searchRequest.searchTerm());
+        return listBySearchTerm(files, searchRequest.query());
     }
 
     private List<FileResponse> listBySearchTerm(List<FileResponse> files,

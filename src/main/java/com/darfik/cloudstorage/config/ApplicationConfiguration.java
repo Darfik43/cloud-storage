@@ -38,13 +38,9 @@ public class ApplicationConfiguration {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/signup/**")
+                    registry.requestMatchers("/signup/**", "/login/**", "/")
                             .permitAll();
-                    registry.requestMatchers("/login/**")
-                            .permitAll();
-                    registry.requestMatchers("/swagger-ui/**")
-                            .permitAll();
-                    registry.requestMatchers("/v3/api-docs/**")
+                    registry.requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
                             .permitAll();
                     registry.requestMatchers("/webjars/**")
                             .permitAll();

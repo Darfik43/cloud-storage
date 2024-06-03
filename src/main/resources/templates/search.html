@@ -1,7 +1,7 @@
-<form action="/search" class="form-inline mb-4" method="post" th:fragment="search">
+<form action="/search" class="form-inline mb-4" method="get" th:fragment="search">
     <div class="form-group mx-sm-3 mb-2">
         <label class="sr-only" for="searchTerm">Search Term</label>
-        <input class="form-control" id="searchTerm" name="searchTerm" placeholder="Search Term" required th:value="${searchTerm}" type="text">
+        <input class="form-control" id="searchTerm" placeholder="Search" required th:name="query" type="search">
     </div>
     <button class="btn btn-primary mb-2" type="submit">Search</button>
 </form>
