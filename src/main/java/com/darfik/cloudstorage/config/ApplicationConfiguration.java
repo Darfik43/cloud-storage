@@ -45,7 +45,7 @@ public class ApplicationConfiguration {
                     registry.requestMatchers("/webjars/**")
                             .permitAll();
                     registry.requestMatchers("/signup-form.js", "/signup-form.css",
-                                    "/password-validator.js")
+                                    "/password-validator.js", "/drop-zone.js")
                             .permitAll();
                     registry.anyRequest().authenticated();
                 })
