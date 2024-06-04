@@ -45,7 +45,7 @@ public class MinioS3FolderService implements S3FolderService {
 
     @Override
     public void deleteFolder(FolderDeleteRequest folderDeleteRequest, String owner) {
-        List<FileResponse> files = minioS3FileService.getUserFiles(owner, folderDeleteRequest.path() + folderDeleteRequest.name(), true);
+        List<FileResponse> files = minioS3FileService.getUserFiles(owner, folderDeleteRequest.path() + folderDeleteRequest.name());
 
         List<DeleteObject> objects = convertToDeleteObjects(files, owner);
 
@@ -150,8 +150,8 @@ public class MinioS3FolderService implements S3FolderService {
         }
     }
 
-    private String getUserFolderPrefix(String email) {
-        return UserFolderResolver.getUserFolderPrefix(userService.getUserIdByEmail(email));
+    private String getUserFolderPrefix(String owner) {
+        return UserFolderResolver.getUserFolderPrefix(userService.getUserIdByEmail(owner));
     }
 
 }

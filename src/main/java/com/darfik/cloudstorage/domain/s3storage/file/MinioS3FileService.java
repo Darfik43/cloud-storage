@@ -8,6 +8,7 @@ import io.minio.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -49,12 +50,15 @@ public class MinioS3FileService implements S3FileService {
         deleteFile(new FileDeleteRequest(fileRenameRequest.path(), fileRenameRequest.currentName()), owner);
     }
 
+    @Override
+    public List<FileResponse> getAllUserFiles(String owner, String path) {
+        return convertResultToDto(getListObjects(owner, path, true), owner);
+    }
+
 
     @Override
-    public List<FileResponse> getUserFiles(String email, String path, boolean recursive) {
-        Iterable<Result<Item>> results = getListObjects(email, path, recursive);
-
-        return convertResultToDto(results, email, path);
+    public List<FileResponse> getUserFiles(String owner, String path) {
+        return convertResultToDto(getListObjects(owner, path, false), owner);
     }
 
     private void copyObject(FileRenameRequest fileRenameRequest, String owner) {
@@ -88,17 +92,18 @@ public class MinioS3FileService implements S3FileService {
         }
     }
 
-    private List<FileResponse> convertResultToDto(Iterable<Result<Item>> results, String email, String path) {
+    private List<FileResponse> convertResultToDto(Iterable<Result<Item>> results, String owner) {
         List<FileResponse> files = new ArrayList<>();
 
         results.forEach(result -> {
             try {
                 Item item = result.get();
+                String path = deleteFileNameFromPath(item.objectName().substring(getUserFolderPrefix(owner).length()));
                 FileResponse fileResponse = new FileResponse(
-                        email,
+                        owner,
                         item.isDir(),
                         path,
-                        item.objectName().substring((getUserFolderPrefix(email) + path).length())
+                        item.objectName().substring((getUserFolderPrefix(owner) + path).length())
                 );
                 files.add(fileResponse);
             } catch (Exception e) {
@@ -109,11 +114,11 @@ public class MinioS3FileService implements S3FileService {
         return files;
     }
 
-    private Iterable<Result<Item>> getListObjects(String email, String path,
+    private Iterable<Result<Item>> getListObjects(String owner, String path,
                                                   boolean recursive) {
         return minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(minioProperties.getBucket())
-                .prefix(getUserFolderPrefix(email) + path)
+                .prefix(getUserFolderPrefix(owner) + path)
                 .recursive(recursive)
                 .build());
     }
@@ -122,4 +127,13 @@ public class MinioS3FileService implements S3FileService {
          return UserFolderResolver.getUserFolderPrefix(userService.getUserIdByEmail(owner));
     }
 
+    private String deleteFileNameFromPath(String path)  {
+
+        if ((path.lastIndexOf("/") + 1) < path.length()) {
+            return path.substring(0, path.lastIndexOf("/") + 1);
+        } else {
+            String trimmedPath = path.substring(0, path.length() - 1);
+            return trimmedPath.substring(0, trimmedPath.lastIndexOf("/") + 1);
+            }
+    }
 }
