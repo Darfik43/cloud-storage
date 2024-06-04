@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @TestConfiguration
 public class TestWebSecurityConfiguration {
@@ -14,17 +15,23 @@ public class TestWebSecurityConfiguration {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/home", "/signup/**").permitAll();
-                    registry.requestMatchers("/webjars/**").permitAll();
-                    registry.requestMatchers("/signup-form.js", "/signup-form" +
-                            ".css", "/password-validator.js").permitAll();
-                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
-                    registry.requestMatchers("/user/**").hasRole("USER");
+                    registry.requestMatchers("/signup/**", "/login/**", "/**")
+                            .permitAll();
+                    registry.requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                            .permitAll();
+                    registry.requestMatchers("/webjars/**")
+                            .permitAll();
+                    registry.requestMatchers("/signup-form.js", "/signup-form.css",
+                                    "/password-validator.js", "/drop-zone.js")
+                            .permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer ->
                         httpSecurityFormLoginConfigurer.loginPage("/login").usernameParameter("email")
-                                .defaultSuccessUrl("/home").permitAll());
+                                .defaultSuccessUrl("/").permitAll())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher(
+                                "/logout")));
 
         return httpSecurity.build();
     }
