@@ -19,8 +19,11 @@
         </thead>
         <tbody>
         <tr th:each="result : ${searchResults}">
-            <td class="file-item">
-                <a th:href="@{'/' + '?path=' + ${result.path() + result.name()}}" th:text="${result.name()}"></a>
+            <td class="breadcrumb-item">
+                <form th:if="${not result.isDir()}" method="get" action="/" style="display: inline;">
+                    <input type="hidden" name="path" th:value="${result.path()}"/>
+                    <button type="submit" class="btn btn-link" th:text="${result.name()}"></button>
+                </form>
             </td>
             <td th:text="${result.isDir} ? 'Folder' : 'File'"></td>
         </tr>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Cloud Storage</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link th:href="@{/styles.css}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
     .drop-zone {
@@ -58,7 +59,7 @@
 </style>
 <body>
 <div th:replace="header :: header"></div>
-<div class="container mt-5" th:if="${isAuthenticated}">
+<div class="container mt-5" sec:authorize="isAuthenticated()">
     <h2>Cloud Storage</h2>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -88,10 +89,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:classappend="${file.isDir()} ? 'table-active' : ''" th:each="file : ${folderContent}">
+                <tr th:class="${file.isDir() ? 'table-active' : ''}" th:each="file : ${folderContent}">
                     <td class="file-item">
                         <span th:if="${not file.isDir()}" th:text="${file.name()}"></span>
-                        <a th:href="@{'/' + '?path=' + ${#strings.append(file.path(), file.name())}}" th:if="${file.isDir()}" th:text="${file.name()}"></a>
+                        <form th:if="${file.isDir()}" method="get" action="/" style="display: inline;">
+                            <input type="hidden" name="path" th:value="${file.path() + file.name()}"/>
+                            <button type="submit" class="btn btn-link" th:text="${file.name()}"></button>
+                        </form>
                     </td>
                     <td th:text="${file.isDir()} ? 'Folder' : 'File'"></td>
                     <td th:if="${not file.isDir()}">
