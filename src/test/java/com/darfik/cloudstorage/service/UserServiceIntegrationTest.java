@@ -6,13 +6,18 @@ import com.darfik.cloudstorage.domain.user.AppUser;
 import com.darfik.cloudstorage.domain.user.AppUserRepository;
 import com.darfik.cloudstorage.domain.user.RegistrationRequest;
 import com.darfik.cloudstorage.domain.user.UserService;
+import io.minio.MinioClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
 
 import java.util.Optional;
 
@@ -34,6 +39,9 @@ public class UserServiceIntegrationTest {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @MockBean
+    private MinioClient minioClient;
 
     @BeforeEach
     void beforeEach() {
@@ -74,6 +82,14 @@ public class UserServiceIntegrationTest {
         );
         assertEquals("User should be saved only once",
                 appUserRepository.findAll().size(), 1);
+    }
+
+    @DynamicPropertySource
+    static void postgresProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+        registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
     }
 
 }
