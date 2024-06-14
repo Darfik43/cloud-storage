@@ -1,13 +1,11 @@
 FROM gradle:8.8.0-jdk17 AS Build
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
+WORKDIR /
+COPY build.gradle .
+COPY /src /src
+RUN gradle build -x test
 
 FROM openjdk:17-oracle
+
+COPY --from=build /build/libs/*.jar application.jar
 EXPOSE 8080
-
-RUN mkdir /app
-
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
-
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
+ENTRYPOINT ["java", "-jar", "application.jar"]
