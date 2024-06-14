@@ -6,11 +6,8 @@
 
 ## Description
 
-(In development stage)
-
-Cloud file storage. It's a multiuser web-application on Spring Boot. Feel free
-to
-proceed basic operations with files and folders in cloud-storage: Upload,
+Cloud file storage. It's a multiuser web-application on Spring Boot. Made
+to proceed basic operations with files and folders in cloud-storage: Upload,
 rename, delete
 
 ## Sequence diagram
@@ -42,7 +39,7 @@ rename, delete
 
 - HTML
 - CSS
-- Bootstrap
+- Bootstrap 4
 - JavaScript
 
 ### Testing:
@@ -61,7 +58,12 @@ DDD pattern
 
 ## Installation and Running
 
-In progress
+1. Clone the repository: git clone https://github.com/Darfik43/cloud-storage
+2. Open Terminal 
+3. cd [path-to-repository]/cloud-storage
+4. docker compose build 
+5. docker compose up 
+6. Open browser and go localhost:8080/
 
 ## Authors
 
@@ -77,11 +79,9 @@ darfik43@gmail.com
 
 ## Описание
 
-(В разработке)
-
 Облачное хранилище файлов. Многопользовательское веб-приложение построенное с
 использованием
-Spring boot. На данный момент обладает всей базовой функциональностю облака:
+Spring boot. Обладает всей базовой функциональностю облака:
 загрузить, переименовать, удалить
 
 ## Диаграмма последовательности
@@ -114,7 +114,7 @@ Spring boot. На данный момент обладает всей базов
 
 - HTML
 - CSS
-- Bootstrap
+- Bootstrap 4
 - JavaScript
 
 ### Testing:
@@ -133,7 +133,12 @@ Spring boot. На данный момент обладает всей базов
 
 ## Установка и запуск
 
-В разработке
+1. Клонировать репозиторий с проектом: git clone https://github.com/Darfik43/cloud-storage
+2. Открыть терминал
+3. cd [path-to-repository]/cloud-storage
+4. docker compose build
+5. docker compose up
+6. Приложение доступно на localhost:8080/
 
 ## Автор
 
