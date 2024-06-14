@@ -1,4 +1,17 @@
 services:
+  app:
+    build:
+      context: .
+    container_name: cloud-file-storage
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+
   postgres:
     image: 'postgres:latest'
     environment:
