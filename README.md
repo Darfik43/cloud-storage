@@ -1,4 +1,4 @@
-# cloud-storage (Still in development)
+# cloud-storage
 
 [EN](#english-version) | [RU](#русская-версия)
 
