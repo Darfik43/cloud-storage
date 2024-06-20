@@ -30,14 +30,21 @@ public class MinioConfiguration {
     @EventListener(ContextRefreshedEvent.class)
     private void createBucket() {
         try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
-                    .bucket(minioProperties.getBucket())
-                    .build());
-            if (!found) {
+            if (isBucketExists()) {
                 minioClient.makeBucket(MakeBucketArgs.builder()
                         .bucket(minioProperties.getBucket())
                         .build());
             }
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating bucket", e);
+        }
+    }
+
+    private boolean isBucketExists() {
+        try {
+            return minioClient.bucketExists(BucketExistsArgs.builder()
+                    .bucket(minioProperties.getBucket())
+                    .build());
         } catch (Exception e) {
             throw new RuntimeException("Error creating bucket", e);
         }
