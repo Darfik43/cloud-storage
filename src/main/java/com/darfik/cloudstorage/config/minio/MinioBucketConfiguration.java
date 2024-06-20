@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.config;
+package com.darfik.cloudstorage.config.minio;
 
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import io.minio.BucketExistsArgs;
@@ -12,20 +12,13 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
 @Configuration
-@RequiredArgsConstructor(onConstructor = @__(@Lazy))
-public class MinioConfiguration {
+@RequiredArgsConstructor
+public class MinioBucketConfiguration {
 
     private final MinioProperties minioProperties;
-    private final MinioClient minioClient;
 
-    @Bean
-    public MinioClient minioClient() {
-        return MinioClient.builder()
-                .endpoint(minioProperties.getUrl())
-                .credentials(minioProperties.getAccessKey(),
-                        minioProperties.getSecretKey())
-                .build();
-    }
+    @Lazy
+    private final MinioClient minioClient;
 
     @EventListener(ContextRefreshedEvent.class)
     private void createBucket() {
