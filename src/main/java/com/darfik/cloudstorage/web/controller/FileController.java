@@ -3,7 +3,7 @@ package com.darfik.cloudstorage.web.controller;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileUploadRequest;
-import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
+import com.darfik.cloudstorage.domain.s3storage.file.service.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

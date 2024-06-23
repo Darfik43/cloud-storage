@@ -3,7 +3,7 @@ package com.darfik.cloudstorage.web.controller;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderUploadRequest;
-import com.darfik.cloudstorage.domain.s3storage.folder.S3FolderService;
+import com.darfik.cloudstorage.domain.s3storage.folder.service.S3FolderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

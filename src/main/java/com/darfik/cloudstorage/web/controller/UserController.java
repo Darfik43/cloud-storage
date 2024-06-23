@@ -1,8 +1,8 @@
 package com.darfik.cloudstorage.web.controller;
 
 import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
-import com.darfik.cloudstorage.domain.user.RegistrationRequest;
-import com.darfik.cloudstorage.domain.user.UserService;
+import com.darfik.cloudstorage.domain.user.dto.RegistrationRequest;
+import com.darfik.cloudstorage.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

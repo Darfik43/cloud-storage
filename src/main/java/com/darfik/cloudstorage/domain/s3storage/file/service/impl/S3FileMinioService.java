@@ -1,14 +1,14 @@
-package com.darfik.cloudstorage.domain.s3storage.file.impl;
+package com.darfik.cloudstorage.domain.s3storage.file.service.impl;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
-import com.darfik.cloudstorage.domain.s3storage.file.*;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileUploadRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.service.S3FileService;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
-import com.darfik.cloudstorage.domain.user.UserServiceImpl;
+import com.darfik.cloudstorage.domain.user.service.impl.UserServiceImpl;
 import io.minio.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;

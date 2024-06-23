@@ -2,10 +2,10 @@ package com.darfik.cloudstorage.service;
 
 
 import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
-import com.darfik.cloudstorage.domain.user.AppUser;
-import com.darfik.cloudstorage.domain.user.AppUserRepository;
-import com.darfik.cloudstorage.domain.user.RegistrationRequest;
-import com.darfik.cloudstorage.domain.user.UserService;
+import com.darfik.cloudstorage.domain.user.model.AppUser;
+import com.darfik.cloudstorage.domain.user.repository.AppUserRepository;
+import com.darfik.cloudstorage.domain.user.dto.RegistrationRequest;
+import com.darfik.cloudstorage.domain.user.service.UserService;
 import io.minio.MinioClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

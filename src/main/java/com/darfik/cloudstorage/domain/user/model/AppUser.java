@@ -1,5 +1,6 @@
-package com.darfik.cloudstorage.domain.user;
+package com.darfik.cloudstorage.domain.user.model;
 
+import com.darfik.cloudstorage.domain.user.dto.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

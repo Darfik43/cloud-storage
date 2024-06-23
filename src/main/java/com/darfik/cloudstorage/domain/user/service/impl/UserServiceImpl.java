@@ -1,7 +1,12 @@
-package com.darfik.cloudstorage.domain.user;
+package com.darfik.cloudstorage.domain.user.service.impl;
 
 import com.darfik.cloudstorage.domain.exception.ResourceNotFoundException;
 import com.darfik.cloudstorage.domain.exception.UserAlreadyExistsException;
+import com.darfik.cloudstorage.domain.user.dto.RegistrationRequest;
+import com.darfik.cloudstorage.domain.user.dto.Role;
+import com.darfik.cloudstorage.domain.user.model.AppUser;
+import com.darfik.cloudstorage.domain.user.repository.AppUserRepository;
+import com.darfik.cloudstorage.domain.user.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.user;
+package com.darfik.cloudstorage.domain.user.dto;
 
 public enum Role {
 

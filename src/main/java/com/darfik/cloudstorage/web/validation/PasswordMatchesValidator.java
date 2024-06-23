@@ -1,6 +1,6 @@
 package com.darfik.cloudstorage.web.validation;
 
-import com.darfik.cloudstorage.domain.user.RegistrationRequest;
+import com.darfik.cloudstorage.domain.user.dto.RegistrationRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

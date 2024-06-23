@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.web.security;
 
-import com.darfik.cloudstorage.domain.user.AppUser;
-import com.darfik.cloudstorage.domain.user.AppUserRepository;
+import com.darfik.cloudstorage.domain.user.model.AppUser;
+import com.darfik.cloudstorage.domain.user.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

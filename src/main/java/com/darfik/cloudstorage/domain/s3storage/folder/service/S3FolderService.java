@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.s3storage.folder;
+package com.darfik.cloudstorage.domain.s3storage.folder.service;
 
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderRenameRequest;

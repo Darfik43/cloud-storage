@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.user;
+package com.darfik.cloudstorage.domain.user.dto;
 
 import com.darfik.cloudstorage.web.validation.PasswordMatches;
 import com.darfik.cloudstorage.web.validation.ValidPassword;

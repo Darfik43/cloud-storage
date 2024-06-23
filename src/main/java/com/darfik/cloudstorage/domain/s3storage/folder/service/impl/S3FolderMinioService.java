@@ -1,15 +1,15 @@
-package com.darfik.cloudstorage.domain.s3storage.folder.impl;
+package com.darfik.cloudstorage.domain.s3storage.folder.service.impl;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
-import com.darfik.cloudstorage.domain.s3storage.file.impl.S3FileMinioService;
-import com.darfik.cloudstorage.domain.s3storage.folder.S3FolderService;
+import com.darfik.cloudstorage.domain.s3storage.file.service.impl.S3FileMinioService;
+import com.darfik.cloudstorage.domain.s3storage.folder.service.S3FolderService;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderDeleteRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderRenameRequest;
 import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderUploadRequest;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
-import com.darfik.cloudstorage.domain.user.UserService;
+import com.darfik.cloudstorage.domain.user.service.UserService;
 import io.minio.*;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;

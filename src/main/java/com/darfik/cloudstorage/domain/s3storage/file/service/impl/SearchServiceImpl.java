@@ -1,7 +1,7 @@
-package com.darfik.cloudstorage.domain.s3storage.file.impl;
+package com.darfik.cloudstorage.domain.s3storage.file.service.impl;
 
-import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
-import com.darfik.cloudstorage.domain.s3storage.file.SearchService;
+import com.darfik.cloudstorage.domain.s3storage.file.service.S3FileService;
+import com.darfik.cloudstorage.domain.s3storage.file.service.SearchService;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
 import com.darfik.cloudstorage.domain.s3storage.file.dto.SearchRequest;
 import lombok.RequiredArgsConstructor;
