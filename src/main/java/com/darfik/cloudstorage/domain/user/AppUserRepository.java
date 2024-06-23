@@ -14,7 +14,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     boolean existsByEmail(String email);
 
     @Transactional
-    @Query("SELECT user FROM AppUser user WHERE user.email = ?1")
     Optional<AppUser> findByEmail(String email);
+
 
 }
