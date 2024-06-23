@@ -13,13 +13,19 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
         RegistrationRequest registrationRequest = (RegistrationRequest) obj;
-        if (!(registrationRequest.password().equals(registrationRequest.matchingPassword()))) {
+        boolean isValid = passwordsMatch(registrationRequest.password(), registrationRequest.matchingPassword());
+
+        if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
                     .addPropertyNode("matchingPassword").addConstraintViolation();
-            return false;
         }
-        return true;
+
+        return isValid;
+    }
+
+    private boolean passwordsMatch(String password, String matchingPassword) {
+        return password.equals(matchingPassword);
     }
 
 }
