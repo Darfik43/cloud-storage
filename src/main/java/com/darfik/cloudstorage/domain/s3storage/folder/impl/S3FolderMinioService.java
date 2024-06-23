@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -69,13 +70,9 @@ public class S3FolderMinioService implements S3FolderService {
     }
 
     private List<DeleteObject> convertToDeleteObjects(List<FileResponse> files, String owner) {
-        List<DeleteObject> objects = new ArrayList<>();
-
-        for (FileResponse file : files) {
-            objects.add(new DeleteObject(getUserFolderPrefix(owner) + file.path() + file.name()));
-        }
-
-        return objects;
+        return files.stream().map(file ->
+                new DeleteObject(getUserFolderPrefix(owner) + file.path() + file.name()))
+                .collect(Collectors.toList());
     }
 
     private void uploadObjects(List<SnowballObject> objects) {
@@ -108,7 +105,16 @@ public class S3FolderMinioService implements S3FolderService {
     }
 
     private List<SnowballObject> createSnowballObjectsFromFiles(List<MultipartFile> files, String userPrefix) {
-        List<SnowballObject> objects = new ArrayList<>();
+        List<SnowballObject> objects = files.stream()
+                .map(file -> {
+                    String fileName = userPrefix + file.getOriginalFilename();
+                    try {
+                        return new SnowballObject(fileName, file.getInputStream(), file.getSize(), null);
+                    } catch (Exception e) {
+                        throw new FileOperationException("Error uploading files: " + e.getMessage());
+                    }
+                })
+                .collect(Collectors.toList());
 
         for (MultipartFile file : files) {
             String fileName = userPrefix + file.getOriginalFilename();
