@@ -30,4 +30,28 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         return result.isValid();
     }
 
+
+//    Could be implemented with RegExp
+
+//    @Override
+//    public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {
+//        String lowercaseRule = "(?=.*[a-z])";
+//        String uppercaseRule = "(?=.*[A-Z])";
+//        String digitRule = "(?=.*\\d)";
+//        String specialCharRule = "(?=.*[@$!%*?&])";
+//        String lengthRule = "[A-Za-z\\d@$!%*?&]{8,30}$";
+//
+//        String passwordPattern = "^" + lowercaseRule + uppercaseRule + digitRule + specialCharRule + lengthRule;
+//
+//        boolean isValid = password.matches(passwordPattern);
+//
+//        if (!isValid) {
+//            constraintValidatorContext.buildConstraintViolationWithTemplate(
+//                    "Password must be between 8 and 30 characters, and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")
+//                    .addConstraintViolation();
+//        }
+//
+//        return isValid;
+//    }
+
 }
