@@ -1,5 +1,10 @@
 package com.darfik.cloudstorage.domain.s3storage.file;
 
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileDeleteRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileRenameRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileUploadRequest;
+
 import java.util.List;
 
 public interface S3FileService {

@@ -1,5 +1,9 @@
-package com.darfik.cloudstorage.domain.s3storage.file;
+package com.darfik.cloudstorage.domain.s3storage.file.impl;
 
+import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
+import com.darfik.cloudstorage.domain.s3storage.file.SearchService;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.SearchRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

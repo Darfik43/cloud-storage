@@ -1,8 +1,8 @@
-package com.darfik.cloudstorage.domain.s3storage.folder;
+package com.darfik.cloudstorage.domain.s3storage.file.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record FolderRenameRequest(
+public record FileRenameRequest(
 
         @NotBlank(message = "Current name can't be blank")
         String currentName,

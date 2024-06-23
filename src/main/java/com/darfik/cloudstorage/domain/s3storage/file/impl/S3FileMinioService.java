@@ -1,6 +1,11 @@
-package com.darfik.cloudstorage.domain.s3storage.file;
+package com.darfik.cloudstorage.domain.s3storage.file.impl;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
+import com.darfik.cloudstorage.domain.s3storage.file.*;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileDeleteRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileRenameRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileUploadRequest;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
 import com.darfik.cloudstorage.domain.user.UserServiceImpl;
@@ -8,7 +13,6 @@ import io.minio.*;
 import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -17,7 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MinioS3FileService implements S3FileService {
+public class S3FileMinioService implements S3FileService {
 
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;

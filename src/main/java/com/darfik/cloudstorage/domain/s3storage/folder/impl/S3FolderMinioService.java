@@ -1,8 +1,12 @@
-package com.darfik.cloudstorage.domain.s3storage.folder;
+package com.darfik.cloudstorage.domain.s3storage.folder.impl;
 
 import com.darfik.cloudstorage.domain.exception.FileOperationException;
-import com.darfik.cloudstorage.domain.s3storage.file.FileResponse;
-import com.darfik.cloudstorage.domain.s3storage.file.MinioS3FileService;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.impl.S3FileMinioService;
+import com.darfik.cloudstorage.domain.s3storage.folder.S3FolderService;
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderDeleteRequest;
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderRenameRequest;
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderUploadRequest;
 import com.darfik.cloudstorage.domain.s3storage.props.MinioProperties;
 import com.darfik.cloudstorage.domain.s3storage.util.UserFolderResolver;
 import com.darfik.cloudstorage.domain.user.UserService;
@@ -20,12 +24,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MinioS3FolderService implements S3FolderService {
+public class S3FolderMinioService implements S3FolderService {
 
     private final MinioProperties minioProperties;
     private final MinioClient minioClient;
     private final UserService userService;
-    private final MinioS3FileService minioS3FileService;
+    private final S3FileMinioService s3FileMinioService;
 
     @Override
     public void uploadFolder(FolderUploadRequest folderUploadRequest, String owner) {
@@ -45,7 +49,7 @@ public class MinioS3FolderService implements S3FolderService {
 
     @Override
     public void deleteFolder(FolderDeleteRequest folderDeleteRequest, String owner) {
-        List<FileResponse> files = minioS3FileService.getUserFiles(owner, folderDeleteRequest.path() + folderDeleteRequest.name());
+        List<FileResponse> files = s3FileMinioService.getUserFiles(owner, folderDeleteRequest.path() + folderDeleteRequest.name());
 
         List<DeleteObject> objects = convertToDeleteObjects(files, owner);
 

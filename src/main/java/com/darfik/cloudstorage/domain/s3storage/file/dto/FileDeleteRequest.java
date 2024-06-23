@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.s3storage.file;
+package com.darfik.cloudstorage.domain.s3storage.file.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

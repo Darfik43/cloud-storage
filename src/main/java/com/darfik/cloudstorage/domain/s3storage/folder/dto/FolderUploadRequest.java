@@ -1,4 +1,4 @@
-package com.darfik.cloudstorage.domain.s3storage.folder;
+package com.darfik.cloudstorage.domain.s3storage.folder.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;

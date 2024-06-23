@@ -1,7 +1,7 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.FileResponse;
-import com.darfik.cloudstorage.domain.s3storage.file.SearchRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileResponse;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.SearchRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

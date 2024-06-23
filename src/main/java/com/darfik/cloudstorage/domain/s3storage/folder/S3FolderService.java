@@ -1,5 +1,9 @@
 package com.darfik.cloudstorage.domain.s3storage.folder;
 
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderDeleteRequest;
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderRenameRequest;
+import com.darfik.cloudstorage.domain.s3storage.folder.dto.FolderUploadRequest;
+
 public interface S3FolderService {
 
     void uploadFolder(FolderUploadRequest folderUploadRequest, String owner);

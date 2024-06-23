@@ -1,15 +1,14 @@
 package com.darfik.cloudstorage.web.controller;
 
-import com.darfik.cloudstorage.domain.s3storage.file.FileDeleteRequest;
-import com.darfik.cloudstorage.domain.s3storage.file.FileRenameRequest;
-import com.darfik.cloudstorage.domain.s3storage.file.FileUploadRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileDeleteRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileRenameRequest;
+import com.darfik.cloudstorage.domain.s3storage.file.dto.FileUploadRequest;
 import com.darfik.cloudstorage.domain.s3storage.file.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
